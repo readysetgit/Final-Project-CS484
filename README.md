@@ -11,3 +11,17 @@ Side hustle - cat mom and god of C++.<br>
 ### **Fahad "Consigliere" Ahmad**
 Right hand man. Collects resources and keeps morale high. Tasked with the **server side** using Node.js. <br>
 Side hustle - Being late to class.
+
+# Workflow strat
+1. Create tasks on github project
+2. Make branches corresponding to above tasks and merge them with the dev branch
+3. After testing dev branch, create a pull request to merge it with main branch
+4. One of the members views and approves the PR and merges it with the main branch
+
+## Development Tools
+- mongodb: backend  
+- nodejs: server side  
+- html/css/js: client side
+
+
+
