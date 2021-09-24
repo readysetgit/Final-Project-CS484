@@ -1,5 +1,4 @@
 
-
 function smallFontSize() {
   var containerEle = document.getElementById('myContainer');
   console.log(containerEle)
