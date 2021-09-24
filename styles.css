@@ -1,3 +1,6 @@
+#myContainer.size-normal { font-size: 14px; }
+#myContainer.size-large { font-size: 20px; }
+#myContainer.size-small { font-size: 10px; }
 p {
     margin: 0px;
 }
