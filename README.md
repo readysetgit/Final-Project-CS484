@@ -13,7 +13,7 @@ Right hand man. Collects resources and keeps morale high. Tasked with the **serv
 Side hustle - Being late to class. <br><br>
 
 # Workflow strategy
-1. Create tasks on github project
+1. Create issues on Github Projects Kanban Board and assign it to a team member from the Issues Tab
 2. Make branches corresponding to above tasks and merge them with the dev branch
 3. After testing dev branch, create a pull request to merge it with main branch
 4. One of the members views and approves the PR and merges it with the main branch
