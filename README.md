@@ -1,7 +1,7 @@
 # Urban Wolf
 ### Github Pages: https://uic-cs484.github.io/assignment-1---team-project-proposal-team7/proposal.html <br><br>
 # Members
-### **Christina "Boss" Wen Gohua**  
+### **Christina "Boss" Wen Gehua**  
 Owner of the idea and reponsible for resolving disputes in the group. 
 Will be the backbone of the project as the **backend** developer. <br>
 Side hustle - Tech Support.<br>
