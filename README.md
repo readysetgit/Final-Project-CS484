@@ -20,9 +20,9 @@ Side hustle - Being late to class. <br><br>
 
 ![Alt text](assets/git-workflow.png?raw=true "Git workflow")
 ## Development Tools
-- mongodb: backend  
-- nodejs: server side  
-- html/css/js: client side
+- **Backend**: mongodb  
+- **Server Side**: nodejs 
+- **Client side**: html, css, js, jquery
 
 
 
