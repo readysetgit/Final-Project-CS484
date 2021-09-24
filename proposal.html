@@ -2,8 +2,11 @@
 <html>
     <head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link rel="stylesheet" onclick="setFontSize()" type="text/css" href="styles.css">
         <script src="frontSize.js"></script>
+        <script src="helperFont.js"></script>
+
+
     </head>
     <body >
         <div id="myContainer" class="size-normal main-container">
@@ -22,7 +25,7 @@
                     </p>
                 </div>
                 <div>
-                    <h2>User type and Goal</h2>
+                    <h2>User onclick="setFontSize()" type and Goal</h2>
                     <p>
                         People who want to travel to new places and check out what's good beforehand.
                         Also who are interested in other people's suggestions or suggestions from people 
@@ -52,6 +55,13 @@
                         <a href="javascript:smallFontSize();">Small Font</a>
                         <a href="javascript:largeFontSize();">Large Font</a>
                         <a href="javascript:normalFontSize();">Normal Font</a>
+
+                        <input onclick="setFontSize(this.value)" type="radio" id="html" name="fav_language" value="Small">
+                        <label for="html">Small Font</label><br>
+                        <input onclick="setFontSize(this.value)" type="radio" id="css" name="fav_language" value="Large">
+                        <label for="css">Large Font</label><br>
+                        <input onclick="setFontSize(this.value)" type="radio" id="javascript" name="fav_language" value="Normal">
+                        <label for="javascript">Normal Font</label>
                     </div>
                 </div>
             </footer>
