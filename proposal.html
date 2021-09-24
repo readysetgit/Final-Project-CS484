@@ -3,13 +3,17 @@
     <head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <link rel="stylesheet" type="text/css" href="styles.css">
+        <script src="functions.js"></script>
     </head>
     <body >
+        <button id="increase-btn" onclick="increaseSize()">click to increase font size</button>
+        <button id="decrease-btn" onclick="decreaseSize()">click to decrease font size</button>
+        
         <div class="main-container">
-            <header class="ambitious-header">
+            <header class="ambitious-header ">
                 <h1>The most ambitious title ever!</h1>
             </header>
-            <div class="juicy-content">
+            <div style="font-size: 14px;" class="juicy-content font-class">
                 <div>
                     <h2>RESTful API</h2>
                     <p>
@@ -20,7 +24,7 @@
                         places that they review, and Location history ONLY IF they opt in.
                     </p>
                 </div>
-                <div>
+                <div >
                     <h2>User type and Goal</h2>
                     <p>
                         People who want to travel to new places and check out what's good beforehand.
@@ -29,12 +33,11 @@
                         <p>- Provide an easy way to recommend shop/restaurants etc. </p>
                         <p>- Then use intuitive visual cues like a heat map on google maps to show places that are "hot" and that are not.</p> 
                         <p>- User can choose to share their suggestions with people close them (location wise) </p>
-                    </p>
-                    
+                    </p>                   
                 </div>
             </div>
-            <footer>
-                <div class="footer-gray">
+            <footer style="font-size: 14px;" class="font-class">
+                <div class="footer-gray ">
                     <div class="box">
                         <h2>Left column</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of L</p>
@@ -47,7 +50,7 @@
                         <h2>Left column</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of L</p>
                     </div>
-                </div>dsklfjdskljf
+                </div>
             </footer>
         </div>
     </body>
