@@ -3,6 +3,7 @@
 #myContainer.size-small { font-size: 10px; }
 p {
     margin: 0px;
+    text-align: left;
 }
 .ambitious-header {
     width: 50%;
