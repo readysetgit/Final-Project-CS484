@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <title>Urban Wolf</title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <link rel="stylesheet" onclick="setFontSize()" type="text/css" href="styles.css">
-        <script src="frontSize.js"></script>
-        <script src="helperFont.js"></script>
-
-
+        <link rel="stylesheet" type="text/css" href="styles/styles.css">
+        <link rel="stylesheet" type="text/css" href="styles/custom-radio.css">
+        <link rel="stylesheet" type="text/css" href="styles/helpers.css">
+        <script src="js/functions.js"></script>
     </head>
-    <body >
-        <div id="myContainer" class="size-normal main-container">
-            <header class="ambitious-header">
+    <body>
+        <div id="container" class="size-normal main-container">
+            <header class="header">
                 <h1>Urban Wolf</h1>
             </header>
-            <div class="juicy-content">
-                <div>
+            <div class="content mtxl">
+                <div class="content-box">
                     <h2>RESTful API</h2>
                     <p>
                         We are planning to use Google Maps RESTful API.
@@ -24,46 +24,52 @@
                         places that they review, and Location history ONLY IF they opt in.
                     </p>
                 </div>
-                <div>
-                    <h2>User onclick="setFontSize()" type and Goal</h2>
+                <div class="content-box">
+                    <h2>User type and Goal</h2>
                     <p>
                         People who want to travel to new places and check out what's good beforehand.
                         Also who are interested in other people's suggestions or suggestions from people 
-                        out of their immediate circle.
-                        <p>Goal:</p>
-                        <p>- Provide an easy way to recommend shop/restaurants etc. </p>
-                        <p>- Then use intuitive visual cues like a heat map on google maps to show places that are "hot" and that are not.</p>
-                        <p>- User can choose to share their suggestions with people close them (location wise) </p>
+                        out of their immediate circle. <br>
+                        Goal: <br>
+                        - Provide an easy way to recommend shop/restaurants etc.  <br>
+                        - Then use intuitive visual cues like a heat map on google maps to show places that are "hot" and that are not. <br> 
+                        - User can choose to share their suggestions with people close them (location wise)  <br>
                     </p>
                 </div>
             </div>
-            <footer>
-                <div class="footer-gray">
-                    <div class="box">
+            <footer class="footer mtxl">
+                    <div class="footer-box">
                         <h2>List Resource link:</h2>
-                        <p>https://developers.google.com/maps/documentation/javascript/firebase
-                            <p>https://developers.google.com/maps/documentation/places/web-service/details</p>
-                        </p>
+                        <a target="_blank" href="https://developers.google.com/maps/documentation/javascript/firebase">https://developers.google.com/maps/documentation/javascript/firebase</a>
+                        <a target="_blank" href="https://developers.google.com/maps/documentation/places/web-service/details">https://developers.google.com/maps/documentation/places/web-service/details</a>
                     </div>
-                    <div class="box">
+                    <div class="footer-box">
                         <h2>List question + concerns:</h2>
                         <p>Decide to use mongodb or sql? </p>
                         <p>How to prevent security issues?</p>
                     </div>
-                    <div class="box">
+                    <div class="footer-box">
                         <h2>Accessiblity Implementation</h2>
-                        <a href="javascript:smallFontSize();">Small Font</a>
-                        <a href="javascript:largeFontSize();">Large Font</a>
-                        <a href="javascript:normalFontSize();">Normal Font</a>
+                        <div class="accessibility-content">
+                            <label class="checkbox-container small-checkbox">
+                                <input id="small" value="small" type="radio" name="font-radio-btn" onclick="setFontSize(this.value)" class="accessiblity-radio">
+                                <span class="checkmark"></span>
+                                <span style="font-size: 14px !important;"><strong>Small</strong></span>
+                            </label>
 
-                        <input onclick="setFontSize(this.value)" type="radio" id="html" name="fav_language" value="Small">
-                        <label for="html">Small Font</label><br>
-                        <input onclick="setFontSize(this.value)" type="radio" id="css" name="fav_language" value="Large">
-                        <label for="css">Large Font</label><br>
-                        <input onclick="setFontSize(this.value)" type="radio" id="javascript" name="fav_language" value="Normal">
-                        <label for="javascript">Normal Font</label>
+                            <label class="checkbox-container normal-checkbox">
+                                <input checked id="normal" value="normal" type="radio" name="font-radio-btn" onclick="setFontSize(this.value)" class="accessiblity-radio">
+                                <span class="checkmark"></span>
+                                <span style="font-size: 18px !important;"><strong>Normal</strong></span>
+                            </label>
+
+                            <label class="checkbox-container large-checkbox">
+                                <input id="large" value="large" type="radio" name="font-radio-btn" onclick="setFontSize(this.value)"  class="accessiblity-radio">
+                                <span class="checkmark"></span>
+                                <span style="font-size: 24px !important;"><strong>Large</strong></span>
+                            </label>
+                        </div>
                     </div>
-                </div>
             </footer>
         </div>
     </body>

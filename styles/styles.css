@@ -1,0 +1,91 @@
+#container.size-small { font-size: 14px; }
+#container.size-normal { font-size: 18px; }
+#container.size-large { font-size: 24px; }
+body {
+    background: #EEF2F7;
+}
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #262626;
+    word-wrap: break-word;
+}
+p {
+    margin: 0px;
+}
+.header {
+    width: 50%;
+    margin: auto;
+    padding: 8px 16px;
+    background: #A5A5A5;
+    font: #262626;
+    text-align: center;
+}
+.main-container {
+    background: #F1F1F1;
+    padding: 20px;
+    margin: auto;
+}
+.content {
+    display: flex;
+    text-align: center;
+}
+.content .content-box {
+    flex: 1;
+    background: white;
+    /* border: 1px solid #1BC8FF ; */
+    border-top: 6px solid #1BC8FF ;
+    border-radius: 6px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12)
+;
+}
+
+.footer {
+    background: #A5A5A5;
+    display: flex;
+    background: #1BC8FF;
+    /* flex-wrap: wrap; */
+    padding: 10px;
+}
+
+.footer .footer-box {
+    flex: 1;
+    min-width: 0; /*Needed to add this because flex 1 wasn't giving equal width to all boxes*/
+    background: white;
+    margin: 10px 5px;
+    padding: 10px;
+    box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12)
+;
+}
+
+.accessibility-content {
+    display: flex;
+    flex-direction: column;
+}
+
+/*Media queries for making content responsive*/
+@media only screen and (max-width: 1024px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .footer {
+        flex-direction: column;
+    }
+}
+
+/* css grid*/
+/* css flexbox grow shrink basis*/
