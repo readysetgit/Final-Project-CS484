@@ -16,22 +16,42 @@
             <div class="content mtxl">
                 <div class="content-box">
                     <h2>RESTful API</h2>
-                    <p>
-                        We are planning to use Google Maps RESTful API.
-                        It will give users the ability to rate a place and save/bookmark it in their profile.
-                        The places they rate will show up on their map and to the public only if they choose to.
-                        We will collect most popular restaurants who rate by user, email/number, password, 
-                        places that they review, and Location history ONLY IF they opt in.
-                    </p>
+                    <div>
+                        <ul>
+                            <li>We are planning to use Google Maps REST APIs. It will give users the ability to rate a place and save/bookmark it in their profile.</li>
+                            <li>
+                                The places they rate will show up on their map and to the public only if they choose to.
+                                Places with more ratings will show up "hotter" on the map, whereas places that are not as popular will have a cooler color indicating a lower popularity.
+                            </li>
+                            <li>
+                                Authenticated users will be asked to sign up only if they try to rate a place, otherwise users can view the "hot" places in town without signing up. 
+                                However, to rate a place, a user will have to sign up using either phone or email and set up a password. We won't ask the users for any more information.
+                            </li>
+                            <li>
+                                Users will be asked to complete their profile by setting a username if they want to go public with their liked places. 
+                            </li>
+                            <li>
+                                We will also store the data of restaurants/shops that users like.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="entities">
+                        <h3>Proposed database entities:</h3>
+                        <ul>
+                            <li><strong>USER</strong> - user_id, fname, lname, email, phone, password, friends_list, created_at, updated_at</li>
+                            <li><strong>LOCATION</strong> - location_id, name, google_metadata, liked_by_count, created_at, updated_at</li>
+                            <li><strong>LOC_USER_REL</strong>- id, user_id, location_id</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="content-box">
                     <h2>User type and Goal</h2>
                     <div>
-                        <p>People who want to travel to new places and check out what's good beforehand. Also who are interested in other people's suggestions or suggestions from people out of their immediate circle.</p>
+                        <p>People who want to travel to new places and check out what's good beforehand. Also people who are interested in other people's suggestions, or suggestions from those out of their immediate circle.</p>
                         <p style="display: flex; flex-direction: column;" class="mts">
                             <strong class="mbs">Goals:</strong> 
                             <span>- Provide an easy way to recommend shop/restaurants etc.</span>
-                            <span>- Then use intuitive visual cues like a heat map on google maps to show places that are "hot" and that are not.</span>
+                            <span>- Use intuitive visual cues like a heat map on google maps to show places that are "hot" and that are not.</span>
                             <span>- User can choose to share their suggestions with people close them (location wise)</span> 
                         </p>
 
@@ -40,7 +60,8 @@
             </div>
             <footer class="footer mtxl">
                     <div class="footer-box">
-                        <h2>List Resource link:</h2>
+                        <h2 style="text-align: center;">Resources</h2>
+                        <h3>APIs:</h3>
                         <ol>
                             <li>
                                 <a target="_blank" href="https://developers.google.com/maps/documentation/javascript/firebase">https://developers.google.com/maps/documentation/javascript/firebase</a>
@@ -49,14 +70,26 @@
                                 <a target="_blank" href="https://developers.google.com/maps/documentation/places/web-service/details">https://developers.google.com/maps/documentation/places/web-service/details</a>
                             </li>
                         </ol>
+                        <h3>Design Ideas</h3>
+                        <ul>
+                            <li>
+                                <a target="_blank" href="https://dribbble.com/shots/14340699-True-inside-Recommendation">https://dribbble.com/shots/14340699-True-inside-Recommendation</a>
+                            </li>
+                        </ul>
                     </div>
                     <div class="footer-box">
-                        <h2>List question + concerns:</h2>
-                        <p>Decide to use mongodb or sql? </p>
-                        <p>How to prevent security issues?</p>
+                        <h2 style="text-align: center;">Queries & Concerns</h2>
+                        <ol>
+                            <li>
+                                <p>Can <strong>state management</strong> be done in vanilla HTML, or the only way to do it is using a frontend framework like React, Angular etc.?</p>
+                            </li>
+                            <li>
+                                <p>How to <strong>scale</strong> the web app to handle large traffic?</p>
+                            </li>
+                        </ol>
                     </div>
                     <div class="footer-box">
-                        <h2>Accessiblity Implementation</h2>
+                        <h2 style="text-align: center;">Select font size</h2>
                         <div class="accessibility-content">
                             <label class="checkbox-container small-checkbox">
                                 <input id="small" value="small" type="radio" name="font-radio-btn" onclick="setFontSize(this.value)" class="accessiblity-radio">

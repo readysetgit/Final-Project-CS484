@@ -13,6 +13,9 @@ p {
     margin: 0px;
     text-align: left;
 }
+li {
+    text-align: left;
+}
 .header {
     max-width: 600px;
     margin: auto;
@@ -94,5 +97,6 @@ p {
     }
 }
 
-/* css grid*/
-/* css flexbox grow shrink basis*/
+@media only screen and (max-width: 768px) {
+    .header h1 { color: #1BC8FF}
+}
