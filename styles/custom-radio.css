@@ -28,14 +28,15 @@
     left: 0;
     height: 25px;
     width: 25px;
-    background-color: #eee;
+    background-color: #fff;
     border-radius: 50%;
+    border: 1px solid #1BC8FF;
     /* transform: translate(0, 2px); */
   }
   
   /* On mouse-over, add a grey background color */
   .checkbox-container:hover input ~ .checkmark {
-    background-color: #ccc;
+    background-color: #fff;
   }
   
   /* When the radio button is checked, add a blue background */
@@ -123,6 +124,6 @@
     background: white;
   }
 
-  .checkbox-container:hover {
+  /* .checkbox-container:hover {
     background: #1BC8FF;
-  }
+  } */
