@@ -34,7 +34,7 @@ li {
 }
 .main-container {
     background: #F1F1F1;
-    padding: 20px;
+    padding: 20px 40px;
     margin: auto;
 }
 .content {
@@ -70,6 +70,7 @@ li {
     flex: 1;
     min-width: 0; /*Needed to add this because flex 1 wasn't giving equal width to all boxes*/
     background: white;
+    border-radius: 6px;
     margin: 10px 5px;
     padding: 10px;
     box-shadow:
@@ -88,6 +89,9 @@ li {
 
 /*Media queries for making content responsive*/
 @media only screen and (max-width: 1024px) {
+    .main-container {
+        padding: 10px 20px;
+    }
     .content {
         flex-direction: column;
     }
