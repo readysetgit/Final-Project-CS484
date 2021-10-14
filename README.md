@@ -3,7 +3,7 @@
 ```
 npm run-script grade
 ```
- The above CLI command will install packages for the Nodejs server and React app and then proceed to build and serve the static React files using nodejs on `localhost:3001` <br><br>
+ The above CLI command will install packages for the Nodejs server and React app and then proceeds to build and serve the static React files using nodejs on `localhost:3001` <br><br>
 
 ## Step by Step - 
 ### 1. Build React app
@@ -46,13 +46,11 @@ Side hustle - Being late to class. <br><br>
 
 ![Alt text](git-workflow.png?raw=true "Git workflow")
 ## Development Tools
-- **Backend**: SQLite  
+- **Backend**: sqlite  
 - **Server side**: nodejs, express, passport.js 
-- **Client side**: html, css, js, jquery, bootstrap
+- **Client side**: react, jest
 
 <br><br>
---- 
---- 
 <br><br>
 # Getting Started with Create React App
 
