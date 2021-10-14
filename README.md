@@ -3,16 +3,16 @@
 ```
 npm run-script grade
 ```
-### This above CLI command will install packages for the Nodejs server and React app and then proceed to build and serve the static React files using nodejs on `localhost:3001` <br><br>
+ The above CLI command will install packages for the Nodejs server and React app and then proceed to build and serve the static React files using nodejs on `localhost:3001` <br><br>
 
 ## Step by Step - 
-### Build React app
+### 1. Build React app
 ``` 
 cd client
 npm install 
 npm run build
 ```
-### Serve files using Nodejs server
+### 2. Serve files using Nodejs server
 ``` 
 cd ..
 npm install 
