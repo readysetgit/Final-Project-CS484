@@ -1,4 +1,30 @@
-# HotSpot
+# SETUP INSTRUCTIONS
+## Magic command -
+```
+npm run-script grade
+```
+### This above CLI command will install packages for the Nodejs server and React app and then proceed to build and serve the static React files using nodejs on `localhost:3001` <br><br>
+
+## Step by Step - 
+### Build React app
+``` 
+cd client
+npm install 
+npm run build
+```
+### Serve files using Nodejs server
+``` 
+cd ..
+npm install 
+npm start
+```
+The server is now running on `localhost:3001` 
+<br><br>
+
+
+
+# ABOUT THE PROJECT
+## HotSpot 
 ### ~~Link to Website: https://uic-cs484.github.io/assignment-1---team-project-proposal-team7/proposal.html~~ We've shifted to a React app from assignment 2 onwards <br><br>
 # Members
 ### **Christina "Boss" Wen Gehua**  
@@ -26,7 +52,6 @@ Side hustle - Being late to class. <br><br>
 
 <br><br>
 --- 
----
 --- 
 <br><br>
 # Getting Started with Create React App
