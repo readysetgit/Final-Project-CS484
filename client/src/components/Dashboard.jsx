@@ -20,7 +20,7 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div className="container">
-        Welcome to the dashboard {this.state.name}
+        <h1>Welcome to the dashboard {this.state.name}</h1>
         <img src={this.state.imageUrl} alt="" />
         {this.renderList()}
         {this.renderTable()}
@@ -72,11 +72,14 @@ export default class Dashboard extends Component {
 
   renderList() {
     return (
-      <ul>
-        {this.state.list.map((tag) => (
-          <li key={tag}>{tag}</li>
-        ))}
-      </ul>
+      <React.Fragment>
+        <h2>Here's a list</h2>
+        <ul>
+          {this.state.list.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </React.Fragment>
     );
   }
 }
