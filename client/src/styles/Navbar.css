@@ -1,0 +1,12 @@
+.navbar-custom {
+    background-color: #262626;
+    padding: 8px;
+}
+
+.navbar-custom ul {
+    display: flex;
+}
+
+.link {
+    margin: 0 10px;
+}

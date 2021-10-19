@@ -1,22 +1,13 @@
 import React from "react";
-import "./App.css";
+import "./styles/App.css";
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Dashboard from './components/Dashboard'
 import NavBar from "./components/NavBar";
 
-// import { Dashboard } from './components/Dashboard'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 function App() {
-  // const [data, setData] = React.useState(null);
-
-  // React.useEffect(() => {
-  //   fetch("/api")
-  //     .then((res) => res.json())
-  //     .then((data) => setData(data.message));
-  // }, []);
-
   return (
     <div>
       <NavBar />
