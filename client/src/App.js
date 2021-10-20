@@ -9,11 +9,11 @@ import axios from "axios";
 
 class App extends Component {
 
-  async componentDidMount() {
-    const data = await axios.get('/users')
-    console.log(data)
-  }
-  
+  // async componentDidMount() {
+  //   const data = await axios.get('/users')
+  //   console.log(data)
+  // }
+
   render() {
     return (
       <div>
