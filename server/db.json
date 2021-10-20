@@ -1,0 +1,59 @@
+{
+  "users": [
+    {
+      "id": 2,
+      "first_name": "Steve",
+      "last_name": "Palmer",
+      "username": "steve@codingthesmartway.com",
+      "password": "12345"
+    },
+    {
+      "id": 3,
+      "first_name": "Ann",
+      "last_name": "Smith",
+      "username": "ann@codingthesmartway.com",
+      "password": "12345"
+    },
+    {
+      "first_name": "Fahaddd",
+      "last_name": "A",
+      "username": "ayyy@gmail.com",
+      "password": "645645634",
+      "id": 4
+    },
+    {
+      "first_name": "Fahaddd",
+      "last_name": "A",
+      "username": "ayyy@gmail.com",
+      "password": "645645634",
+      "id": 6
+    },
+    {
+      "first_name": "Fahaddd",
+      "last_name": "A",
+      "username": "ayyy@gmail.com",
+      "password": "645645634",
+      "id": 8
+    },
+    {
+      "first_name": "dahafff",
+      "last_name": "Aff",
+      "username": "dd@gmail.com",
+      "id": 9
+    },
+    {
+      "first_name": "Fahaddd",
+      "last_name": "A",
+      "username": "ayyy@gmail.com",
+      "password": "645645634",
+      "id": 10
+    },
+    {
+      "first_name": "Fahaddd",
+      "last_name": "A",
+      "username": "fahad@gmail.com",
+      "password": "645645634",
+      "id": 11
+    }
+  ]
+}

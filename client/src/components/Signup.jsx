@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import logo from '../assets/HotSPOT.gif'
 import { Link } from 'react-router-dom';
 export default class Signup extends Component {
+    handleSignup = () => {
+
+    }
+    
     render() {
         return (
             <div class="main-container">
@@ -19,7 +23,7 @@ export default class Signup extends Component {
                         <div className="input-group mb-3">
                             <input className="form-control" type="password" placeholder="password"/>
                         </div>
-                        <button className="btn btn-primary login-btn">Sign up</button>
+                        <button onClick={this.handleSignup} className="btn btn-primary login-btn">Sign up</button>
                     </div>
                     <div class="mt-3">
                         <p>Already have an account? <Link to="login">Login</Link></p>
