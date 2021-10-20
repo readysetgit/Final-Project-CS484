@@ -1,0 +1,50 @@
+/* -------------------LEFT AND RIGHT------------------------------------- */
+
+.plxs { padding-left: 2px !important} 
+.pls { padding-left: 4px !important} 
+.plm { padding-left: 8px !important} 
+.pll { padding-left: 16px !important} 
+.plxl { padding-left: 40px !important} 
+
+.prxs { padding-right: 2px !important} 
+.prs { padding-right: 4px !important} 
+.prm { padding-right: 8px !important} 
+.prl { padding-right: 16px !important} 
+.prxl { padding-right: 40px !important} 
+
+.mlxs { margin-left: 2px !important} 
+.mls { margin-left: 4px !important} 
+.mlm { margin-left: 8px !important} 
+.mll { margin-left: 16px !important} 
+.mlxl { margin-left: 40px !important} 
+
+.mrxs { margin-right: 2px !important} 
+.mrs { margin-right: 4px !important} 
+.mrm { margin-right: 8px !important} 
+.mrl { margin-right: 16px !important} 
+.mrxl { margin-right: 40px !important} 
+
+/* -------------------TOP AND BOTTOM------------------------------------- */
+.ptxs { padding-top: 2px !important} 
+.pts { padding-top: 4px !important} 
+.ptm { padding-top: 8px !important} 
+.ptl { padding-top: 16px !important} 
+.ptxl { padding-top: 40px !important} 
+
+.pbxs { padding-bottom: 2px !important} 
+.pbs { padding-bottom: 4px !important} 
+.pbm { padding-bottom: 8px !important} 
+.pbl { padding-bottom: 16px !important} 
+.pbxl { padding-bottom: 40px !important} 
+
+.mtxs { margin-top: 2px !important} 
+.mts { margin-top: 4px !important} 
+.mtm { margin-top: 8px !important} 
+.mtl { margin-top: 16px !important} 
+.mtxl { margin-top: 40px !important} 
+
+.mbxs { margin-bottom: 2px !important} 
+.mbs { margin-bottom: 4px !important} 
+.mbm { margin-bottom: 8px !important} 
+.mbl { margin-bottom: 16px !important} 
+.mbxl { margin-bottom: 40px !important} 

@@ -4,10 +4,7 @@ import "../styles/Navbar.css";
 class NavBar extends Component {
   render() {
     return (
-      <nav className="navbar-custom">
-                <Link className="link" to="/dashboard">Dashboard</Link>
-                <Link className="link" to="/login">Login</Link>
-      </nav>
+      <div>Navbar in progress</div>
     );
   }
 }

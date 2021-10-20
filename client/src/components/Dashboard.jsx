@@ -1,84 +1,67 @@
 import React, { Component } from "react";
-
+import lightbulb from '../assets/lightbulb.svg'
+import '../styles/dashboard.css'
 export default class Dashboard extends Component {
   state = {
-    count: 1,
-    name: "diyin",
-    class: "cs484",
-    imageUrl: "https://picsum.photos/200",
-    list: ["item1", "item2", "item3"],
+    name: 'Diyin',
+    userName: 'diyin123',
+    password: '12345678',
+    isEditing: false
   };
 
-  handleIncrement = () => {
-    this.setState({ count: this.state.count + 1 });
-  };
+  handleDoneClick = () => {
+    this.setState({isEditing: false})
+  }
 
-  setValue = (val) => {
-    this.setState({ count: val });
-  };
+  handleEditClick = () => {
+    this.setState({isEditing: true})
+  }
+
+  handleDeleteClick = () => {
+    if (window.confirm('For real? You sure?')) {
+      // Delete account!
+      console.log('The account was deleted');
+    } else {
+      // Do nothing!
+    }
+  }
+
+  renderCurrentDetails() {
+    return (
+      <div style={ {maxWidth: 400, margin: 'auto', marginTop: 100, fontWeight: 'bold', border: '1px solid #262626', padding: 20} } className="current-details">
+        {this.state.name.length > 0 && <p>Your name is Diyin</p>}
+        <p>Your username is {this.state.userName}</p>
+        <div style={{display:'flex', flexDirection:'column'}}>
+          <button onClick={this.handleEditClick} className="btn btn-secondary" >Edit Details</button>
+          <button onClick={this.handleDeleteClick} className="btn btn-danger mts" >Delete Account</button>
+        </div>
+      </div>
+    )
+  }
+
+  renderEditDetails() {
+    return (
+      <div style={ {maxWidth: 400, margin: 'auto', marginTop: 100, fontWeight: 'bold', border: '1px solid #262626', padding: 20} } className="current-details">
+        <div style={{display:'flex', flexDirection:'column'}}>
+          <button onClick={this.handleDoneClick} className="btn btn-primary">Done</button>
+        </div>
+      </div>
+    )
+  }
 
   render() {
     return (
-      <div className="container">
-        <h1>Welcome to the dashboard {this.state.name}</h1>
-        <img src={this.state.imageUrl} alt="" />
-        {this.renderList()}
-        {this.renderTable()}
-      </div>
-    );
-  }
-
-  renderTable = () => {
-    return (
       <React.Fragment>
-        <h1>Using states and updating state</h1>
-        <table className="table table-dark" style={{ maxWidth: 1000 }}>
-          <tbody>
-            <tr className="table-dark">
-              <th>Action</th>
-              <th>Effect</th>
-            </tr>
-            <tr className="table-dark">
-              <td className="table-dark">
-                <button
-                  className="btn btn-danger"
-                  onClick={this.handleIncrement}
-                >
-                  increment
-                </button>
-              </td>
-              <td className="table-dark">
-                <p>{this.state.count}</p>
-              </td>
-            </tr>
-            <tr className="table-dark">
-              <td className="table-dark">
-                <input
-                  placeholder="Enter a number"
-                  className="form-control"
-                  style={{ maxWidth: 300 }}
-                  onChange={(event) => this.setValue(event.target.value)}
-                />
-              </td>
-              <td className="table-dark">
-                <p>{this.state.count}</p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </React.Fragment>
-    );
-  };
+        <div className="container dashboard-container">
+          <h1>Welcome to your dashboard {this.state.name}! </h1>
+          <div className="info-container">
+            <img className="bulb" src={lightbulb} alt="lightbulb"/>
+            <p className="mlm">At the moment, you can perform some actions by clicking on one of the buttons below</p>
+          </div>
+        </div>
+        { this.state.isEditing === false && this.renderCurrentDetails() }
+        { this.state.isEditing === true && this.renderEditDetails() }
 
-  renderList() {
-    return (
-      <React.Fragment>
-        <h2>Here's a list</h2>
-        <ul>
-          {this.state.list.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
       </React.Fragment>
     );
   }
