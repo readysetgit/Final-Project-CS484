@@ -10,7 +10,6 @@ import { Route, Switch } from 'react-router-dom'
 function App() {
   return (
     <div>
-      <NavBar />
             <div>
               <Switch>
                 <Route path="/signup" component={Signup} />

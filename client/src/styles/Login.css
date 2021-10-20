@@ -1,0 +1,20 @@
+.main-container {
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+.logo-img {
+    max-width: 300px;
+    max-height: 300px;
+}
+.login-form-container {
+    text-align: center;
+    min-width: 300px;
+    max-width: 500px;
+    margin: auto;
+}
+.login-btn {
+    width: 300px;
+}
