@@ -1,3 +1,6 @@
+# TO DO 
+1. Unique username indexing on mongodb
+2. jestjs
 # SETUP INSTRUCTIONS
 ## Magic command -
 ```

@@ -7,8 +7,8 @@
     "start": "node server/server.js",
     "start-client": "cd client && npm start",
     "start-server": "npm start",
-    "grade": "npm install && cd client && npm install && cd .. && npm run start-client-and-server",
-    "start-client-and-server": "concurrently --kill-others \"cd client && npm start\" \"npm start\"",
+    "grade": "npm install && cd client && npm install && cd .. && npm run start-all",
+    "start-all": "concurrently --kill-others \"cd client && npm start\" \"npm start\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

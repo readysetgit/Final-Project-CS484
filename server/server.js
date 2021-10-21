@@ -25,9 +25,6 @@ app.use(
     credentials: true,
   })
 );
-// app.use(express.static(path.resolve(__dirname, "../client/build")));
-
-//----------------------------- DB Connection --------------------------
 
 //----------------------------- SESSION --------------------------------
 const sessionStore = new MongoStore({
