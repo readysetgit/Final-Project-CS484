@@ -1,36 +1,81 @@
 import React, { Component } from 'react';
 import logo from '../assets/HotSPOT.gif'
 import { Link } from 'react-router-dom';
-export default class Signup extends Component {
-    handleSignup = () => {
+import axios from 'axios';
+import * as Auth from '../auth'
 
+export default class Signup extends Component {
+    state = {
+        showPage: false,
+        name:'',
+        username:'',
+        password:''
+    }
+
+    componentDidMount() {
+        axios.get('/authenticate')
+        .then(res => {
+            let isLoggedIn =  res.data.isLoggedIn;
+            if (isLoggedIn === true) {
+              this.props.history.push("/dashboard");
+            } else {
+              this.setState({showPage: true})
+              this.username.current.focus();
+            }
+        })
+        .catch(err => console.log(err))
+    }
+
+    handleSignup = () => {
+        axios.post('/signup', {username: this.state.username, password: this.state.password, name: this.state.name})
+             .then(res => {
+                this.props.history.push('/login')                 
+             })
     }
     
-    render() {
+    handleNameChange = (e) => {
+        this.setState({name: e.target.value});
+    }
+
+    handleUsernameChange = (e) => {
+        this.setState({username: e.target.value});
+    }
+
+    handlePasswordChange = (e) => {
+        this.setState({password: e.target.value});
+    }
+
+
+
+    renderBody() {
         return (
-            <div class="main-container">
+            <div className="main-container">
                 <div className="logo-container">
                     <img className="logo-img" src={logo} alt="website logo"/>
                 </div>
                 <div className="login-form-container">
                     <div>
                         <div className="input-group mb-3">
-                            <input className="form-control" type="text" placeholder="Name (optional)"/>
+                            <input className="form-control" type="text" value={this.state.name} onChange={this.handleNameChange} placeholder="Name (optional)"/>
                         </div>
                         <div className="input-group mb-3">
-                            <input className="form-control" type="text" placeholder="username"/>
+                            <input className="form-control" type="text" value={this.state.username} onChange={this.handleUsernameChange} placeholder="username"/>
                         </div>
                         <div className="input-group mb-3">
-                            <input className="form-control" type="password" placeholder="password"/>
+                            <input className="form-control" type="password" value={this.state.password} onChange={this.handlePasswordChange} placeholder="password"/>
                         </div>
                         <button onClick={this.handleSignup} className="btn btn-primary login-btn">Sign up</button>
                     </div>
-                    <div class="mt-3">
+                    <div className="mt-3">
                         <p>Already have an account? <Link to="login">Login</Link></p>
                     </div>
                 </div>
             </div>
         );
+    }
+
+    render() {
+        return (this.state.showPage === true && this.renderBody())
     }
 }
 

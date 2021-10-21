@@ -2,23 +2,28 @@
   "name": "Assignment2",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node server/index.js",
-    "build": "cd client && npm install && npm run build",
-    "grade": "npm install && cd client && npm install && npm run build && cd .. && npm run start-db-and-server",
-    "start-db-and-server": "concurrently --kill-others \"npm run startdb\" \"npm start\"",
-    "startdb": "json-server --watch server/db.json",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --ignore 'db.json' server/index.js"
+    "start": "node server/server.js",
+    "start-client": "cd client && npm start",
+    "start-server": "npm start",
+    "grade": "npm install && cd client && npm install && cd .. && npm run start-client-and-server",
+    "start-client-and-server": "concurrently --kill-others \"cd client && npm start\" \"npm start\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.23.0",
+    "bcrypt": "^5.0.1",
+    "connect-mongo": "^3.1.2",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "json-server": "^0.17.0"
+    "express-session": "^1.17.2",
+    "mongoose": "^6.0.11",
+    "passport": "^0.5.0",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "concurrently": "^6.3.0",
