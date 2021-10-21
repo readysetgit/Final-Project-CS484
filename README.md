@@ -6,23 +6,27 @@
 # SETUP INSTRUCTIONS
 ## Magic command -
 ```
-npm run-script grade
+npm run grade
 ```
- The above CLI command will install packages for the Nodejs server and React app and then proceed to build and serve the static React files using nodejs on `localhost:3001` <br><br>
+ The above CLI command will install packages for the Nodejs server and React app and then run 2 concurrent servers on the following endpoints - <br><br>
+  React App - `localhost:3000` <br>
+  Nodejs Server - `localhost:3001` <br><br>
 
+If you want to do it step by step instead, follow the instructions below:
 ## Step by Step - 
 ### 1. Build React app
 ``` 
 cd client
 npm install 
-npm run build
+npm start
 ```
 ### 2. Serve files using Nodejs server
 ``` 
-cd ..
+(Open a new terminal)
 npm install 
 npm start
 ```
+The client is now running on `localhost:3000`<br>
 The server is now running on `localhost:3001` 
 <br><br>
 
