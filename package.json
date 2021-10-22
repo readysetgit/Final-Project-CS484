@@ -9,7 +9,7 @@
     "start-server": "npm start",
     "grade": "npm install && cd client && npm install && cd .. && npm run start-all",
     "start-all": "concurrently --kill-others \"cd client && npm start\" \"npm start\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
