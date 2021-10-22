@@ -127,7 +127,7 @@ export default class Dashboard extends Component {
               </div>
           </div>
           <div style={{display:'flex'}}>
-            <button style={{flex:1}} className="mrm" onClick={this.handleDoneClick} className="btn btn-primary">
+            <button style={{flex:1}} onClick={this.handleDoneClick} className="mrm btn btn-primary">
               Done
             </button>
             <button style={{flex:1}} onClick={this.onCancel} className="btn">

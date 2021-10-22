@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import logo from '../assets/HotSPOT.gif'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import * as Auth from '../auth'
-
+import * as Password from '../passwords'
 export default class Signup extends Component {
     state = {
         showPage: false,
@@ -27,10 +26,19 @@ export default class Signup extends Component {
     }
 
     handleSignup = () => {
-        axios.post('/signup', {username: this.state.username, password: this.state.password, name: this.state.name})
+        let validPassword = Password.password(this.state.password)
+
+        if(validPassword === true){
+            axios.post('/signup', {username: this.state.username, password: this.state.password, name: this.state.name})
              .then(res => {
                 this.props.history.push('/login')                 
              })
+        }
+        else{
+            alert('Password required to have 1 lowercase, 1 uppercase, 1 number, 1 symbol and at least have 8 charactor')
+        }
+
+        
     }
     
     handleNameChange = (e) => {
