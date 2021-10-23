@@ -26,7 +26,17 @@ The client is now running on `localhost:3000`<br>
 The server is now running on `localhost:3001` 
 <br><br>
 
+# UNIT TESTING 
+```
+npm test
+```
+- We have unit tested backend routes in this assignment.
+- The tests are performed using `jest` and and `supertest` for testing the routes. 
+- We've written tests for both valid and erroneous inputs.
+- Since most of the nodejs server's main purpose to make perform CRUD operations and keep track of the user session, these unit tests cover the major functionality of the app.
+<br>
 
+![Alt text](unit-tests.png?raw=true "Passed tests example")
 
 # ABOUT THE PROJECT
 ## HotSpot 
@@ -51,9 +61,9 @@ Side hustle - Being late to class. <br><br>
 
 ![Alt text](git-workflow.png?raw=true "Git workflow")
 ## Development Tools
-- **Backend**: sqlite  
-- **Server side**: nodejs, express, passport.js 
-- **Client side**: react, jest
+- **Backend**: mongodb  
+- **Server side**: nodejs, express, passport.js, jest 
+- **Client side**: react
 
 <br><br>
 <br><br>

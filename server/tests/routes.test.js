@@ -20,9 +20,7 @@ describe("API test", () => {
         password: "12345",
         name: "diyin rocks",
       })
-      .expect(200)
       .then((response) => {
-        // Check response  data
         if (response.body.error) {
           expect(response.body.error).toBe("Username is taken, try logging in");
         } else {
@@ -57,5 +55,4 @@ describe("API test", () => {
           expect(response.body.error).toBe("Incorrect username or password");
       });
   });
-
 });
