@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from '../assets/HotSPOT.gif'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import * as Password from '../passwords'
+import { isValidPassword } from '../passwordValidator'
 export default class Signup extends Component {
     state = {
         showPage: false,
@@ -19,26 +19,30 @@ export default class Signup extends Component {
               this.props.history.push("/dashboard");
             } else {
               this.setState({showPage: true})
-              this.username.current.focus();
             }
         })
         .catch(err => console.log(err))
     }
 
     handleSignup = () => {
-        let validPassword = Password.password(this.state.password)
+        let validPassword = isValidPassword(this.state.password)
 
         if(validPassword === true){
             axios.post('/signup', {username: this.state.username, password: this.state.password, name: this.state.name})
              .then(res => {
+                 if (res.error) {
+                     alert(res.error)
+                     return;
+                 }
                 this.props.history.push('/login')                 
+             }).catch(err => {
+                 alert(err.response.data.error)
              })
         }
         else{
-            alert('Password required to have 1 lowercase, 1 uppercase, 1 number, 1 symbol and at least have 8 charactor')
+            console.error('Password is required to have 1 uppercase, 1 number, 1 symbol and at least have 8 characters')
+            alert('Password is required to have 1 uppercase, 1 number, 1 symbol and at least have 8 characters')
         }
-
-        
     }
     
     handleNameChange = (e) => {

@@ -7,12 +7,25 @@
     "start": "node server/server.js",
     "start-client": "cd client && npm start",
     "start-server": "npm start",
-    "grade": "npm install && cd client && npm install && cd .. && npm run start-all",
     "start-all": "concurrently --kill-others \"cd client && npm start\" \"npm start\"",
-    "test": "jest"
+    "grade": "npm install && cd client && npm install && cd .. && npm run start-all",
+    "test": "jest --forceExit"
   },
   "keywords": [],
-  "author": "",
+  "contributors": [
+    {
+      "name": "Diyin Hu",
+      "email": "dhu23@uic.edu"
+    },
+    {
+      "name": "Christina Wen Gehua",
+      "email": "cwen7@uic.edu"
+    },
+    {
+      "name": "Fahad Sarfaraz Ahmad",
+      "email": "fahmad27@uic.edu"
+    }
+  ],
   "license": "ISC",
   "dependencies": {
     "axios": "^0.23.0",
@@ -23,11 +36,12 @@
     "express-session": "^1.17.2",
     "mongoose": "^6.0.11",
     "passport": "^0.5.0",
-    "passport-local": "^1.0.0",
-    "validator": "^13.6.0"
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "concurrently": "^6.3.0",
-    "nodemon": "^2.0.14"
+    "jest": "^27.3.1",
+    "nodemon": "^2.0.14",
+    "supertest": "^6.1.6"
   }
 }
