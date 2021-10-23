@@ -1,8 +1,4 @@
-# TO DO 
-1. Unique username indexing on mongodb
-2. jestjs
-3. update readme
-4. make more responsive?
+
 # SETUP INSTRUCTIONS
 ## Magic command -
 ```
