@@ -33,7 +33,7 @@ npm test
 - We have unit tested backend routes in this assignment.
 - The tests are performed using `jest` and and `supertest` for testing the routes. 
 - We've written tests for both valid and erroneous inputs.
-- Since most of the nodejs server's main purpose to make perform CRUD operations and keep track of the user session, these unit tests cover the major functionality of the app.
+- Since the main purpose of the server in this case is to perform CRUD operations and keep track of the user session, these unit tests cover the major functionality of the app.
 <br>
 
 ![Alt text](unit-tests.png?raw=true "Passed tests example")
