@@ -1,5 +1,11 @@
 
 # SETUP INSTRUCTIONS
+
+### 1. Navigate to client/
+### 2. Create a `.env` file
+### 3. Paste this line of code in the file `SKIP_PREFLIGHT_CHECK=true`
+### 4. Follow the instructions below 
+
 ## Magic command -
 ```
 npm run grade
