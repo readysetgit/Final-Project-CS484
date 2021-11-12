@@ -37,6 +37,7 @@ const center = {
   lng: -79.3832,
 };
 
+let hotspotList = []
 export default function Home() {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -54,6 +55,11 @@ export default function Home() {
         time: new Date(),
       },
     ]);
+    console.log(e.latLng.lat(), e.latLng.lng())
+    if (window.confirm("Do you want to add this to your hotspots?")) {
+        // TODO - Make database call to save place
+        hotspotList.push(e.latLng.lat())
+    }
   }, []);
 
   const mapRef = React.useRef();
@@ -64,6 +70,18 @@ export default function Home() {
   const panTo = React.useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(14);
+  }, []);
+
+  const setLocationOnMap = React.useCallback(({ lat, lng }) => {
+    setMarkers((current) => [
+      ...current,
+      {
+        lat: lat,
+        lng: lng,
+        time: new Date(),
+      },
+    ]);
+    hotspotList.push(lat)
   }, []);
 
   if (loadError) return "Error";
@@ -80,8 +98,8 @@ export default function Home() {
                 </span>
             </h1>
 
-            <Locate panTo={panTo} />
-            <Search panTo={panTo} />
+            <Locate panTo={panTo} setLocationOnMap={setLocationOnMap}/>
+            <Search panTo={panTo} setLocationOnMap={setLocationOnMap}/>
 
             <GoogleMap
                 id="map"
@@ -131,15 +149,14 @@ export default function Home() {
         </div>
         <div style={{flex:1}} className="hotspotList">
             <ul>
-                <li>Spot 1</li>
-                <li>Spot 2</li>
+                {hotspotList.map((spot, i) => <li key={i}>{spot}</li>)}
             </ul>
         </div>
       </div>
   );
 }
 
-function Locate({ panTo }) {
+function Locate({ panTo, setLocationOnMap }) {
   return (
     <button
       className="locate"
@@ -150,17 +167,21 @@ function Locate({ panTo }) {
               lat: position.coords.latitude,
               lng: position.coords.longitude,
             });
-          },
+            setLocationOnMap({
+              lat: position.coords.latitude, 
+              lng:position.coords.longitude
+            })
+           },
           () => null
         );
       }}
     >
-      <img src="/compass.svg" alt="compass" />
+      My location
     </button>
   );
 }
 
-function Search({ panTo }) {
+function Search({ panTo, setLocationOnMap }) {
   const {
     ready,
     value,
@@ -188,6 +209,7 @@ function Search({ panTo }) {
       const results = await getGeocode({ address });
       const { lat, lng } = await getLatLng(results[0]);
       panTo({ lat, lng });
+      setLocationOnMap({ lat, lng });
     } catch (error) {
       console.log("😱 Error: ", error);
     }
