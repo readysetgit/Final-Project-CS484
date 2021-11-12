@@ -72,6 +72,18 @@ export default function Home() {
     mapRef.current.setZoom(14);
   }, []);
 
+  const setLocationOnMap = React.useCallback(({ lat, lng }) => {
+    setMarkers((current) => [
+      ...current,
+      {
+        lat: lat,
+        lng: lng,
+        time: new Date(),
+      },
+    ]);
+    hotspotList.push(lat)
+  }, []);
+
   if (loadError) return "Error";
   if (!isLoaded) return "Loading...";
 
@@ -91,8 +103,8 @@ export default function Home() {
                 </span>
             </h1> */}
 
-            <Locate panTo={panTo} />
-            <Search panTo={panTo} />
+            <Locate panTo={panTo} setLocationOnMap={setLocationOnMap}/>
+            <Search panTo={panTo} setLocationOnMap={setLocationOnMap}/>
 
             <GoogleMap
                 id="map"
@@ -143,7 +155,8 @@ export default function Home() {
       </div>
   );
 }
-function Locate({ panTo }) {
+
+function Locate({ panTo, setLocationOnMap }) {
   return (
     <button
       className="locate"
@@ -154,17 +167,22 @@ function Locate({ panTo }) {
               lat: position.coords.latitude,
               lng: position.coords.longitude,
             });
-          },
+            setLocationOnMap({
+              lat: position.coords.latitude, 
+              lng:position.coords.longitude
+            })
+           },
           () => null
         );
       }}
     >
-        my location
+      My location
+
     </button>
   );
 }
 
-function Search({ panTo }) {
+function Search({ panTo, setLocationOnMap }) {
   const {
     ready,
     value,
@@ -192,6 +210,7 @@ function Search({ panTo }) {
       const results = await getGeocode({ address });
       const { lat, lng } = await getLatLng(results[0]);
       panTo({ lat, lng });
+      setLocationOnMap({ lat, lng });
     } catch (error) {
       console.log("😱 Error: ", error);
     }
