@@ -57,8 +57,8 @@ export default function Home() {
     ]);
     console.log(e.latLng.lat(), e.latLng.lng())
     if (window.confirm("Do you want to add this to your hotspots?")) {
-        // TODO - Make database call to save place
         hotspotList.push(e.latLng.lat())
+        // TODO - Make database call to save place
     }
   }, []);
 
@@ -77,14 +77,19 @@ export default function Home() {
 
   return (
       <div style={{display:'flex'}} className="map-container mtxl pll prl">
-        <div style={{flex: 3, minHeight:'500'}}>
+        <div style={{flex:1}} className="hotspotList">
+            <ul>
+                {hotspotList.map((spot, i) => <li key={i}>{spot}</li>)}
+            </ul>
+        </div>
+        <div style={{flex:3, minHeight:'500'}}>
             <div style={{minHeight: 500}}>
-            <h1>
+            {/* <h1>
                 Bears{" "}
                 <span role="img" aria-label="tent">
                 ⛺️
                 </span>
-            </h1>
+            </h1> */}
 
             <Locate panTo={panTo} />
             <Search panTo={panTo} />
@@ -134,12 +139,7 @@ export default function Home() {
                 ) : null}
             </GoogleMap>
             </div>
-        </div>
-        <div style={{flex:1}} className="hotspotList">
-            <ul>
-                {hotspotList.map((spot, i) => <li key={i}>{spot}</li>)}
-            </ul>
-        </div>
+        </div>  
       </div>
   );
 }
@@ -159,7 +159,7 @@ function Locate({ panTo }) {
         );
       }}
     >
-      <img src="/compass.svg" alt="compass" />
+        my location
     </button>
   );
 }
