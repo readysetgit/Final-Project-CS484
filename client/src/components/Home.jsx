@@ -37,6 +37,7 @@ const center = {
   lng: -79.3832,
 };
 
+let hotspotList = []
 export default function Home() {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -54,6 +55,11 @@ export default function Home() {
         time: new Date(),
       },
     ]);
+    console.log(e.latLng.lat(), e.latLng.lng())
+    if (window.confirm("Do you want to add this to your hotspots?")) {
+        // TODO - Make database call to save place
+        hotspotList.push(e.latLng.lat())
+    }
   }, []);
 
   const mapRef = React.useRef();
@@ -131,14 +137,12 @@ export default function Home() {
         </div>
         <div style={{flex:1}} className="hotspotList">
             <ul>
-                <li>Spot 1</li>
-                <li>Spot 2</li>
+                {hotspotList.map((spot, i) => <li key={i}>{spot}</li>)}
             </ul>
         </div>
       </div>
   );
 }
-
 function Locate({ panTo }) {
   return (
     <button
