@@ -17,7 +17,7 @@ const customFields = {
 //   }
   
 passport.use(new LocalStrategy(function(username, password, done) {
-    db.get('SELECT password FROM users WHERE username = ?', username, function(err, row) {
+    db.get(`SELECT password FROM users WHERE username = "${username}"`, function(err, row) {
     if (!row) return done(null, false);
     bcrypt.compare(password, row.password, (err, isValid) => {
     if (err) throw err;
