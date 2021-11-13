@@ -34,7 +34,7 @@ app.use(
     secret: env.SECRET,
     resave: true,
     saveUninitialized: true,
-    store: sessionStore,
+    //store: sessionStore,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 24 hours
     },
@@ -92,8 +92,10 @@ app.post("/signup", async (req, res, next) => {
   //     });
   //   });
   // }
-  let userobj = db.get(`SELECT id, email FROM user WHERE email = ${ req.body.username }`)
-  if (userobj !== null) {
+  let userobj = db.get(`SELECT id, email FROM users WHERE email = "${ req.body.username }"`)
+  console.log(userobj)
+  console.log(JSON.stringify(userobj))
+  if (false) {
       res.status(403).send({ error: "Username is taken, try logging in" });
       return;
     } else {
@@ -104,13 +106,13 @@ app.post("/signup", async (req, res, next) => {
         //   name: req.body.name,
         //   passwordHash: hash,
         // });
-        db.run(`INSERT INTO users (email, password, firstName, lastName) 
-        VALUES(${req.body.username}, ${hash}, ${req.body.name}, ${req.body.name});`, function() {
+        db.run(`INSERT INTO users (email, password, firstName, lastName) VALUES ("${req.body.username}", "${hash}", "${req.body.name}", "${req.body.name}")`, function() {
           if (err) {
             return console.log(err.message);
           }
           // get the last insert id
           console.log(`A row has been inserted with rowid ${this.lastID}`);
+          res.send({ username: req.body.username, name: req.body.name });
         });
   
         // Saves to mongodb database

@@ -1,11 +1,27 @@
 const sqlite3 = require('sqlite3').verbose();
 
 // open database in memory
-let db = new sqlite3.Database('./data.db', sqlite3.OPEN_READWRITE, (err) => {
+let db = new sqlite3.Database('./data.db', (err) => {
     if (err) {
       console.error(err.message);
+    } else {
+      db.run(`CREATE TABLE if not EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        email TEXT UNIQUE NOT NULL, 
+        password VARCHAR CHECK(length(password) > 5), 
+        firstName TEXT NOT NULL, 
+        lastName TEXT NOT NULL);`);
+      // db.run(`INSERT INTO users (email, password, firstName, lastName) 
+      //     VALUES('email1@test.com', '123456ABC', 'TestFirst', 'TestLast');`);
+      db.each(`SELECT *
+              FROM users`, (err, row) => {
+        if (err) {
+          console.error(err.message);
+        }
+      console.log(JSON.stringify(row) + "\t");
+    });
+      console.log('Connected to the data database.');
     }
-    console.log('Connected to the data database.');
   });
 
 //   CREATE TABLE location (
@@ -18,21 +34,7 @@ let db = new sqlite3.Database('./data.db', sqlite3.OPEN_READWRITE, (err) => {
 //   );
 
 db.serialize(() => {
-    db.run(`CREATE TABLE if not EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT, 
-        email TEXT UNIQUE NOT NULL, 
-        password VARCHAR CHECK(length(password) > 5), 
-        firstName TEXT NOT NULL, 
-        lastName TEXT NOT NULL);`);
-    db.run(`INSERT INTO users (email, password, firstName, lastName) 
-        VALUES('email1@test.com', '123456ABC', 'TestFirst', 'TestLast');`);
-    db.each(`SELECT *
-             FROM users`, (err, row) => {
-      if (err) {
-        console.error(err.message);
-      }
-      console.log(JSON.stringify(row) + "\t");
-    });
+
   });
 
 // close the database connection
