@@ -92,6 +92,7 @@ export default function Home() {
         <div style={{flex:1}} className="hotspotList">
             <ul>
                 {hotspotList.map((spot, i) => <li key={i}>{spot}</li>)}
+                <Search panTo={panTo} setLocationOnMap={setLocationOnMap}/>
             </ul>
         </div>
         <div style={{flex:3, minHeight:'500'}}>
@@ -104,7 +105,6 @@ export default function Home() {
             </h1> */}
 
             <Locate panTo={panTo} setLocationOnMap={setLocationOnMap}/>
-            <Search panTo={panTo} setLocationOnMap={setLocationOnMap}/>
 
             <GoogleMap
                 id="map"
@@ -140,12 +140,13 @@ export default function Home() {
                 >
                     <div>
                     <h2>
-                        <span role="img" aria-label="bear">
-                        🐻
+                        {this.state.selectedPlace.name}
+                        {/* <span role="img" aria-label="bear">
+                        //  🐻
                         </span>{" "}
-                        Alert
+                        Alert */}
                     </h2>
-                    <p>Spotted {formatRelative(selected.time, new Date())}</p>
+                    {/* <p>Spotted {formatRelative(selected.time, new Date())}</p> */}
                     </div>
                 </InfoWindow>
                 ) : null}
