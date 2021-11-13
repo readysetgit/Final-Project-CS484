@@ -47,6 +47,7 @@ export default function Home() {
   const [selected, setSelected] = React.useState(null);
 
   const onMapClick = React.useCallback((e) => {
+    console.log(e)
     setMarkers((current) => [
       ...current,
       {
@@ -140,7 +141,7 @@ export default function Home() {
                 >
                     <div>
                     <h2>
-                        {this.state.selectedPlace.name}
+                        
                         {/* <span role="img" aria-label="bear">
                         //  🐻
                         </span>{" "}
