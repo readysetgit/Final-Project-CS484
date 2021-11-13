@@ -1,4 +1,8 @@
 
+
+# ERD Diagram
+![Alt text](ERD-hotspot.png?raw=true "ERD diagram")
+
 # SETUP INSTRUCTIONS
 
 ### 1. Navigate to client/
