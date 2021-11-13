@@ -33,9 +33,6 @@ let db = new sqlite3.Database('./data.db', (err) => {
 //     avg_ratings DOUBLE check(avg_ratings >= 0)
 //   );
 
-db.serialize(() => {
-
-  });
 
 // close the database connection
 // db.close((err) => {
