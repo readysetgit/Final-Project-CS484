@@ -11,7 +11,7 @@ const customFields = {
 
 passport.use(new LocalStrategy(customFields, async (username, password, done) => {
     try {
-          user = await User.findOne({ username: username });
+        //   user = await User.findOne({ username: username });
           if (!user) { return done(null, false); }
           
           bcrypt.compare(password, user.passwordHash, (err, isValid) => {
@@ -24,7 +24,7 @@ passport.use(new LocalStrategy(customFields, async (username, password, done) =>
           });
     } catch (err) {
            return done(err);
-    }
+    }                                                                               
  }));
 
 passport.serializeUser((user, done) => {

@@ -4,6 +4,7 @@ const passport = require("passport");
 const PORT = process.env.PORT || 3001;
 const bcrypt = require("bcrypt");
 const connection = require("./config/database");
+const db = require('./config/sql')
 const MongoStore = require("connect-mongo")(session);
 const User = connection.models.User;
 const env = require("./env.json"); 
@@ -41,7 +42,7 @@ app.use(
 );
 
 //---------------------- PASSPORT AUTHENTICATION ------------------------------------------------
-require("./config/passport");
+require("./config/passportsql");
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -72,25 +73,52 @@ app.post("/logout", (req, res, next) => {
 // Signup
 app.post("/signup", async (req, res, next) => {
   // check if username exists
-  let userobj = await User.findOne({ username: req.body.username });
-  if (userobj !== null) {
-    res.status(403).send({ error: "Username is taken, try logging in" });
-    return;
-  } else {
-    bcrypt.hash(req.body.password, 10, (err, hash) => {
-      // creates a new user objects
-      const newUser = new User({
-        username: req.body.username,
-        name: req.body.name,
-        passwordHash: hash,
-      });
+  // let userobj = await User.findOne({ username: req.body.username });
+  // if (userobj !== null) {
+  //   res.status(403).send({ error: "Username is taken, try logging in" });
+  //   return;
+  // } else {
+  //   bcrypt.hash(req.body.password, 10, (err, hash) => {
+  //     // creates a new user objects
+  //     const newUser = new User({
+  //       username: req.body.username,
+  //       name: req.body.name,
+  //       passwordHash: hash,
+  //     });
 
-      // Saves to mongodb database
-      newUser.save().then((user) => {
-        res.send({ username: user.username, name: user.name });
+  //     // Saves to mongodb database
+  //     newUser.save().then((user) => {
+  //       res.send({ username: user.username, name: user.name });
+  //     });
+  //   });
+  // }
+  let userobj = db.get(`SELECT id, email FROM user WHERE email = ${ req.body.username }`)
+  if (userobj !== null) {
+      res.status(403).send({ error: "Username is taken, try logging in" });
+      return;
+    } else {
+      bcrypt.hash(req.body.password, 10, (err, hash) => {
+        // creates a new user objects
+        // const newUser = new User({
+        //   username: req.body.username,
+        //   name: req.body.name,
+        //   passwordHash: hash,
+        // });
+        db.run(`INSERT INTO users (email, password, firstName, lastName) 
+        VALUES(${req.body.username}, ${hash}, ${req.body.name}, ${req.body.name});`, function() {
+          if (err) {
+            return console.log(err.message);
+          }
+          // get the last insert id
+          console.log(`A row has been inserted with rowid ${this.lastID}`);
+        });
+  
+        // Saves to mongodb database
+        // newUser.save().then((user) => {
+        //   res.send({ username: user.username, name: user.name });
+        // });
       });
-    });
-  }
+    }
 });
 
 // Update User Details
