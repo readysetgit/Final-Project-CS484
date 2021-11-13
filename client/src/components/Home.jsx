@@ -140,11 +140,7 @@ export default function Home() {
                 >
                     <div>
                     <h2>
-                        {this.state.selectedPlace.name}
-                        {/* <span role="img" aria-label="bear">
-                        //  🐻
-                        </span>{" "}
-                        Alert */}
+                        {}
                     </h2>
                     {/* <p>Spotted {formatRelative(selected.time, new Date())}</p> */}
                     </div>
