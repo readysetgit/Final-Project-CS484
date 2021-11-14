@@ -1,4 +1,4 @@
-export default [
+const styles = [
     {
         "featureType": "landscape.man_made",
         "elementType": "geometry",
@@ -135,3 +135,5 @@ export default [
         ]
     }
   ];
+
+  export default styles;

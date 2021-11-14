@@ -6,6 +6,7 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 import usePlacesAutocomplete, {
+  getDetails,
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
@@ -37,7 +38,10 @@ const center = {
   lng: -79.3832,
 };
 
-let hotspotList = []
+//let hotspotList = []
+
+
+
 export default function Home() {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -47,7 +51,6 @@ export default function Home() {
   const [selected, setSelected] = React.useState(null);
 
   const onMapClick = React.useCallback((e) => {
-    console.log(e)
     setMarkers((current) => [
       ...current,
       {
@@ -56,9 +59,9 @@ export default function Home() {
         time: new Date(),
       },
     ]);
-    console.log(e.latLng.lat(), e.latLng.lng())
+    //console.log(e.latLng.lat(), e.latLng.lng())
     if (window.confirm("Do you want to add this to your hotspots?")) {
-        hotspotList.push(e.latLng.lat())
+        //hotspotList.push(e.latLng.lat())
         // TODO - Make database call to save place
     }
   }, []);
@@ -73,17 +76,72 @@ export default function Home() {
     mapRef.current.setZoom(14);
   }, []);
 
-  const setLocationOnMap = React.useCallback(({ lat, lng }) => {
-    setMarkers((current) => [
-      ...current,
-      {
-        lat: lat,
-        lng: lng,
-        time: new Date(),
-      },
-    ]);
-    hotspotList.push(lat)
+  const setLocationOnMap = React.useCallback(({ lat, lng, place_id = -1 }) => {
+      if (place_id !== -1) {
+        const param = {
+          placeId: place_id,
+        };
+        getDetails(param)
+          .then((res) => {
+           // hotspotList.push(res.formatted_address);
+            setMarkers((current) => { 
+              let prev_index = current.findIndex(x => x.lat === lat && x.lng === lng)
+              if (prev_index > -1) {
+                return current;
+              }
+              return [
+              ...current,
+              {
+                lat: lat,
+                lng: lng,
+                address: res.formatted_address,
+                time: new Date(),
+              },
+            ]
+          });
+          })
+          .catch((e) => console.error(e));
+      } else {
+
+        setMarkers((current) => {
+          let prev_index = current.findIndex(x => x.lat === lat && x.lng === lng)
+          if (prev_index > -1) {
+            return current;
+          }
+        return [
+          ...current,
+          {
+            lat: lat,
+            lng: lng,
+            time: new Date(),
+          },
+        ]
+      });
+      }
   }, []);
+
+  // const getPlaceDetailsById = React.useCallback((pId) => {
+  //   const param = {
+  //     placeId: pId
+  //   }
+  //   console.log(param)
+  //   getDetails(param).then((res) => {
+  //     // console.log(res)
+  //     setMarkers((current) => { 
+  //         return [
+  //           ...current,
+  //           {
+  //             lat: res.geometry.location.lat(),
+  //             lng: res.geometry.location.lng(),
+  //             placeId: pId,
+  //             time: new Date(),
+  //             address: res.formatted_address,
+  //           },
+  //         ]
+  //       }
+  //    );
+  //   }).catch(e => console.error(e))
+  // }, []);
 
   if (loadError) return "Error";
   if (!isLoaded) return "Loading...";
@@ -92,21 +150,13 @@ export default function Home() {
       <div style={{display:'flex'}} className="map-container mtxl pll prl">
         <div style={{flex:1}} className="hotspotList">
             <ul>
-                {hotspotList.map((spot, i) => <li key={i}>{spot}</li>)}
-                <Search panTo={panTo} setLocationOnMap={setLocationOnMap}/>
+                {markers.map((spot, i) => <li key={spot.lat}>{spot.address || spot.lat}</li>)}
+                <Search panTo={panTo} setLocationOnMap={setLocationOnMap} />
             </ul>
         </div>
         <div style={{flex:3, minHeight:'500'}}>
             <div style={{minHeight: 500}}>
-            {/* <h1>
-                Bears{" "}
-                <span role="img" aria-label="tent">
-                ⛺️
-                </span>
-            </h1> */}
-
-            <Locate panTo={panTo} setLocationOnMap={setLocationOnMap}/>
-
+            <Locate panTo={panTo}/>
             <GoogleMap
                 id="map"
                 mapContainerStyle={mapContainerStyle}
@@ -123,12 +173,6 @@ export default function Home() {
                     onClick={() => {
                     setSelected(marker);
                     }}
-                    // icon={{
-                    //   url: `/bear.svg`,
-                    //   origin: new window.google.maps.Point(0, 0),
-                    //   anchor: new window.google.maps.Point(15, 15),
-                    //   scaledSize: new window.google.maps.Size(30, 30),
-                    // }}
                 />
                 ))}
 
@@ -140,10 +184,9 @@ export default function Home() {
                     }}
                 >
                     <div>
-                    <h2>
-                        {}
-                    </h2>
-                    {/* <p>Spotted {formatRelative(selected.time, new Date())}</p> */}
+                      <h2>
+                          {selected.address}
+                      </h2>
                     </div>
                 </InfoWindow>
                 ) : null}
@@ -154,7 +197,7 @@ export default function Home() {
   );
 }
 
-function Locate({ panTo, setLocationOnMap }) {
+function Locate({ panTo }) {
   return (
     <button
       className="locate"
@@ -165,10 +208,6 @@ function Locate({ panTo, setLocationOnMap }) {
               lat: position.coords.latitude,
               lng: position.coords.longitude,
             });
-            setLocationOnMap({
-              lat: position.coords.latitude, 
-              lng:position.coords.longitude
-            })
            },
           () => null
         );
@@ -206,9 +245,12 @@ function Search({ panTo, setLocationOnMap }) {
 
     try {
       const results = await getGeocode({ address });
+      console.log(results)
+      const place_id = results[0].place_id
+      console.log(place_id)
       const { lat, lng } = await getLatLng(results[0]);
       panTo({ lat, lng });
-      setLocationOnMap({ lat, lng });
+      setLocationOnMap({ lat, lng, place_id });
     } catch (error) {
       console.log("😱 Error: ", error);
     }
@@ -227,7 +269,7 @@ function Search({ panTo, setLocationOnMap }) {
           <ComboboxList>
             {status === "OK" &&
               data.map(({ id, description }) => (
-                <ComboboxOption key={id} value={description} />
+                <ComboboxOption key={id + description} value={description} />
               ))}
           </ComboboxList>
         </ComboboxPopover>
