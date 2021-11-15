@@ -50,21 +50,11 @@ export default function Home() {
   const [markers, setMarkers] = React.useState([]);
   const [selected, setSelected] = React.useState(null);
 
-  const onMapClick = React.useCallback((e) => {
-    setMarkers((current) => [
-      ...current,
-      {
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-        time: new Date(),
-      },
-    ]);
-    //console.log(e.latLng.lat(), e.latLng.lng())
-    if (window.confirm("Do you want to add this to your hotspots?")) {
-        //hotspotList.push(e.latLng.lat())
-        // TODO - Make database call to save place
-    }
-  }, []);
+  const onMapClick = (e) => {
+    let lat = e.latLng.lat()
+    let lng = e.latLng.lng()
+    setLocationOnMap({lat, lng})
+  }
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
@@ -76,71 +66,90 @@ export default function Home() {
     mapRef.current.setZoom(14);
   }, []);
 
-  const setLocationOnMap = React.useCallback(({ lat, lng, place_id = -1 }) => {
-      if (place_id !== -1) {
-        const param = {
-          placeId: place_id,
-        };
-        getDetails(param)
-          .then((res) => {
-           // hotspotList.push(res.formatted_address);
-            setMarkers((current) => { 
-              let prev_index = current.findIndex(x => x.lat === lat && x.lng === lng)
-              if (prev_index > -1) {
-                return current;
-              }
-              return [
-              ...current,
-              {
-                lat: lat,
-                lng: lng,
-                address: res.formatted_address,
-                time: new Date(),
-              },
-            ]
-          });
-          })
-          .catch((e) => console.error(e));
-      } else {
+  const setLocationOnMap = React.useCallback(
+    async ({ lat, lng, place_id = -1 }) => {
+      // Check it place id is passed or not 
+      if (place_id === -1) {
+        const latlng = { lat: lat, lng: lng };
+        let res = await getGeocode({ location: latlng });
+        place_id = res[1].place_id;
+      }
 
-        setMarkers((current) => {
-          let prev_index = current.findIndex(x => x.lat === lat && x.lng === lng)
-          if (prev_index > -1) {
-            return current;
-          }
+      let details = await getDetails({ placeId: place_id });
+      setMarkers((current) => {
+        // Check if user has already marked the place
+        let prev_index = current.findIndex(
+          (x) => x.lat === lat && x.lng === lng
+        );
+        if (prev_index > -1) {
+          return current;
+        }
+
         return [
           ...current,
           {
             lat: lat,
             lng: lng,
+            placeId: place_id,
+            address: details.formatted_address,
             time: new Date(),
           },
-        ]
+        ];
       });
-      }
-  }, []);
+    },
+    []
+  );
 
-  // const getPlaceDetailsById = React.useCallback((pId) => {
-  //   const param = {
-  //     placeId: pId
-  //   }
-  //   console.log(param)
-  //   getDetails(param).then((res) => {
-  //     // console.log(res)
-  //     setMarkers((current) => { 
-  //         return [
-  //           ...current,
-  //           {
-  //             lat: res.geometry.location.lat(),
-  //             lng: res.geometry.location.lng(),
-  //             placeId: pId,
-  //             time: new Date(),
-  //             address: res.formatted_address,
-  //           },
-  //         ]
-  //       }
-  //    );
-  //   }).catch(e => console.error(e))
+  // const setLocationOnMap = React.useCallback(({ lat, lng, place_id = -1 }) => {
+  //     if (place_id !== -1) {
+  //       const param = {
+  //         placeId: place_id,
+  //       };
+  //       getDetails(param)
+  //         .then((res) => {
+  //           setMarkers((current) => { 
+  //             let prev_index = current.findIndex(x => x.lat === lat && x.lng === lng)
+  //             if (prev_index > -1) {
+  //               return current;
+  //             }
+  //             return [
+  //             ...current,
+  //             {
+  //               lat: lat,
+  //               lng: lng,
+  //               address: res.formatted_address,
+  //               time: new Date(),
+  //             },
+  //           ]
+  //         });
+  //         })
+  //         .catch((e) => console.error(e));
+  //     } else {
+  //       const latlng = {lat: lat, lng: lng}
+  //       getGeocode({location: latlng}).then((res) => {
+  //         console.log('PLACE ID FROM GEOCODE')
+  //         console.log(res)
+  //         getDetails({placeId: res[1].place_id}).then(details => {
+  //           setMarkers((current) => {
+  //             let prev_index = current.findIndex(x => x.lat === lat && x.lng === lng)
+  //             if (prev_index > -1) {
+  //               return current;
+  //             }
+  //           return [
+  //             ...current,
+  //             {
+  //               lat: lat,
+  //               lng: lng,
+  //               placeId: res[1].place_id,
+  //               address: details.formatted_address,
+  //               time: new Date(),
+  //             },
+  //           ]
+  //         });
+  //         })
+
+  //       }).catch(e => console.error(e))
+  //     }
   // }, []);
 
   if (loadError) return "Error";
@@ -156,7 +165,7 @@ export default function Home() {
         </div>
         <div style={{flex:3, minHeight:'500'}}>
             <div style={{minHeight: 500}}>
-            <Locate panTo={panTo}/>
+            <Locate panTo={panTo} setLocationOnMap={ setLocationOnMap } />
             <GoogleMap
                 id="map"
                 mapContainerStyle={mapContainerStyle}
@@ -197,7 +206,7 @@ export default function Home() {
   );
 }
 
-function Locate({ panTo }) {
+function Locate({ panTo, setLocationOnMap }) {
   return (
     <button
       className="locate"
@@ -208,6 +217,7 @@ function Locate({ panTo }) {
               lat: position.coords.latitude,
               lng: position.coords.longitude,
             });
+            setLocationOnMap({lat:position.coords.latitude, lng: position.coords.longitude })
            },
           () => null
         );
