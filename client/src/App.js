@@ -5,6 +5,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 // import Dashboard from './components/Dashboard'
 import { Route, Switch } from 'react-router-dom'
+// import Home2 from './components/Home2'
 import Home from "./components/Home";
 class App extends Component {
   render() {
