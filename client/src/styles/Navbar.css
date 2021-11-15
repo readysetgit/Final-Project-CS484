@@ -1,3 +1,6 @@
+.white-txt {
+    color: white;
+}
 .navbar-custom {
     background-color: #262626;
     padding: 8px;
@@ -9,4 +12,27 @@
 
 .link {
     margin: 0 10px;
+}
+
+.nav-logo {
+    font-size: 24px;
+    flex: 1;
+    font-weight: bold;
+}
+
+.dropdown-toggle {
+    color: white !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+}
+
+.dropdown-toggle:hover {
+    color: #262626 !important;
+    background-color: #F1F1F1;
+}
+
+.dropdown-toggle::after {
+    margin-left: 15px !important;
+    vertical-align: 4px;
+    color: #a7a7a7;
 }

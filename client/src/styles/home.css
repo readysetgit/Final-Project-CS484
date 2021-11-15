@@ -1,5 +1,9 @@
 .place-item {
     padding: 10px;
+    box-shadow: 0px 4px 10px -3px rgba(0,0,0,0.7);
+-webkit-box-shadow: 0px 4px 10px -3px rgba(0,0,0,0.7);
+-moz-box-shadow: 0px 4px 10px -3px rgba(0,0,0,0.7);
+border-radius: 14px;
 }
 
 .place-item:hover {
@@ -10,4 +14,56 @@
 .img-logo {
     height: 100px !important;
     width: 100px !important;
+}
+
+.search-input {
+    width: 100%;
+    font-size: 18px;
+    color: #262626;
+    border: 3px solid darkorange;
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.your-hotspots {
+    font-family: 'Roboto';
+    font-size: 20px;
+    font-weight: bolder;
+    color: darkorange;
+    text-align: center;
+}
+
+.hotspot-list-container {
+    overflow-y: scroll;
+    max-height: 600px;
+}
+[data-reach-combobox-option-text] {
+    font-size: 16px;
+    font-weight: bold;
+    color: #262626;
+}
+
+.search-container {
+    max-width: 600px;
+    margin: auto;
+}
+
+div.hotspot-list-container::-webkit-scrollbar {
+    width: 1em;
+    margin-left: 5px;
+    padding-left: 5px;
+}
+   
+div.hotspot-list-container::-webkit-scrollbar-track {
+    margin-left: 5px;
+    padding-left: 5px;
+}
+
+div.hotspot-list-container::-webkit-scrollbar-thumb {
+    background-color: orange;
+    outline: 1px solid orange;
+    border-radius: 8px;
+    padding-left: 10px;
+    margin-left: 10px;
 }

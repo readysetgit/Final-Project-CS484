@@ -1,5 +1,5 @@
 import React from "react";
-import '../styles/home.css'
+import "../styles/home.css";
 import {
   GoogleMap,
   useLoadScript,
@@ -27,21 +27,17 @@ const libraries = ["places"];
 const mapContainerStyle = {
   height: "100%",
   width: "100%",
-  minHeight: "500px"
+  minHeight: "80vh",
 };
 const options = {
-  styles: mapStyles,
-  disableDefaultUI: true,
+  //styles: mapStyles,
+  //disableDefaultUI: true,
   zoomControl: true,
 };
 const center = {
   lat: 43.6532,
   lng: -79.3832,
 };
-
-//let hotspotList = []
-
-
 
 export default function Home() {
   const { isLoaded, loadError } = useLoadScript({
@@ -52,10 +48,10 @@ export default function Home() {
   const [selected, setSelected] = React.useState(null);
 
   const onMapClick = (e) => {
-    let lat = e.latLng.lat()
-    let lng = e.latLng.lng()
-    setLocationOnMap({lat, lng})
-  }
+    let lat = e.latLng.lat();
+    let lng = e.latLng.lng();
+    setLocationOnMap({ lat, lng });
+  };
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
@@ -69,7 +65,7 @@ export default function Home() {
 
   const setLocationOnMap = React.useCallback(
     async ({ lat, lng, place_id = -1 }) => {
-      // Check it place id is passed or not 
+      // Check it place id is passed or not
       if (place_id === -1) {
         const latlng = { lat: lat, lng: lng };
         let res = await getGeocode({ location: latlng });
@@ -79,11 +75,9 @@ export default function Home() {
       let details = await getDetails({ placeId: place_id });
 
       // ES6 syntax
-      // fat arrow syntax 
+      // fat arrow syntax
       setMarkers((current) => {
         // Check if user has already marked the place
-        console.log('THESEE ARE THE CURRENT MARKERS!!!!!!')
-        console.log(current)
         let prev_index = current.findIndex(
           (x) => x.lat === lat && x.lng === lng
         );
@@ -112,86 +106,115 @@ export default function Home() {
 
   if (loadError) return "Error";
   if (!isLoaded) return "Loading...";
-   
-  const onClickHotspot = ({lat,lng}) => {
-    panTo({lat: lat, lng: lng})
-    let currentMarker = markers.filter(m => m.lat === lat && m.lng === lng)
+
+  const onClickHotspot = ({ lat, lng }) => {
+    panTo({ lat: lat, lng: lng });
+    // let currentMarker = markers.filter(m => m.lat === lat && m.lng === lng)
     //console.log(currentMarker)
     // TODO: Click on Marker programmatically
-  }
+  };
 
   return (
-      <div style={{display:'flex'}} className="map-container mtxl pll prl">
-        <div style={{flex:1}} className="hotspotList">
-            <ul>
-                {markers.map((spot, i) => <li onClick={() => onClickHotspot({lat: spot.lat, lng: spot.lng})} className="place-item" key={spot.lat}>{spot.address || spot.lat}</li>)}
-                <Search panTo={panTo} setLocationOnMap={setLocationOnMap} />
-            </ul>
-        </div>
-        <div style={{flex:3, minHeight:'500'}}>
-            <div style={{minHeight: 500}}>
-            <Locate panTo={panTo} setLocationOnMap={ setLocationOnMap } />
-            <GoogleMap
-                id="map"
-                mapContainerStyle={mapContainerStyle}
-                zoom={8}
-                center={center}
-                options={options}
-                onClick={onMapClick}
-                onLoad={onMapLoad}
-            >
-                {markers.map((marker) => (
-                <Marker
-                    key={`${marker.lat}-${marker.lng}`}
-                    position={{ lat: marker.lat, lng: marker.lng }}
-                    onClick={() => {
-                    setSelected(marker);
-                    }}
-                />
-                ))}
+    <React.Fragment>
+      <div className="search-container mtxl">
+        <Search panTo={panTo} setLocationOnMap={setLocationOnMap} />
+      </div>
 
-                {selected ? (
-                <InfoWindow
-                    position={{ lat: selected.lat, lng: selected.lng }}
-                    onCloseClick={() => {
-                    setSelected(null);
-                    }}
+      <div style={{ display: "flex" }} className="map-container mtxl pll prl">
+        {markers.length > 0 && (
+          <div style={{ flex: 1 }} className="hotspotList mrl">
+            <h4 className="your-hotspots mtl">
+              {markers.length > 0 ? "YOUR HOTSPOTS" : "FIND A SPOT YOU LIKE!"}
+            </h4>
+            <div class="hotspot-list-container">
+              {markers.map((spot, i) => (
+                <p
+                  onClick={() =>
+                    onClickHotspot({ lat: spot.lat, lng: spot.lng })
+                  }
+                  className="place-item bold"
+                  key={spot.lat}
                 >
-                    <div>
-                      <div style={{display:'flex'}}>
-                        <div className="place-logo">
-                          <img className="img-logo" src={selected.logo} alt="Place logo"/>
-                        </div>
-                        <div className="plm ptm pbm prm place-details">
-                          <h3>{ selected.name }</h3>
-                          <p>{ selected.address }</p>
-                          <div style={{display:'flex', justifyContent:'space-between'}}>
-                            <p>
-                              <a href={"tel:" + selected.phone}>
-                              { selected.phone }
-                              </a>
-                            </p>
-                            <p>
-                              <a href={selected.website} target="_blank">Website</a>
-                            </p>
-                            <p>
-                              <a href={selected.google_url} target="_blank">Google URL</a>
-                            </p>
+                  {spot.name || spot.address}
+                </p>
+              ))}
+            </div>
+          </div>
+        )}
 
-                          </div>
-                          
+        <div style={{ flex: 3 }}>
+          <div style={{ maxHeight: '100%' }}>
+            {/* <Locate panTo={panTo} setLocationOnMap={ setLocationOnMap } /> */}
+            <GoogleMap
+              id="map"
+              mapContainerStyle={mapContainerStyle}
+              zoom={8}
+              center={center}
+              options={options}
+              onClick={onMapClick}
+              onLoad={onMapLoad}
+            >
+              {markers.map((marker) => (
+                <Marker
+                  key={`${marker.lat}-${marker.lng}`}
+                  position={{ lat: marker.lat, lng: marker.lng }}
+                  onClick={() => {
+                    setSelected(marker);
+                  }}
+                />
+              ))}
 
+              {selected ? (
+                <InfoWindow
+                  position={{ lat: selected.lat, lng: selected.lng }}
+                  onCloseClick={() => {
+                    setSelected(null);
+                  }}
+                >
+                  <div>
+                    <div style={{ display: "flex" }}>
+                      <div className="place-logo">
+                        <img
+                          className="img-logo"
+                          src={selected.logo}
+                          alt="Place logo"
+                        />
+                      </div>
+                      <div className="plm ptm pbm prm place-details">
+                        <h3>{selected.name}</h3>
+                        <p>{selected.address}</p>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <p>
+                            <a href={"tel:" + selected.phone}>
+                              {selected.phone}
+                            </a>
+                          </p>
+                          <p>
+                            <a href={selected.website} target="_blank">
+                              Website
+                            </a>
+                          </p>
+                          <p>
+                            <a href={selected.google_url} target="_blank">
+                              Google URL
+                            </a>
+                          </p>
                         </div>
                       </div>
-
-                      
                     </div>
+                  </div>
                 </InfoWindow>
-                ) : null}
+              ) : null}
             </GoogleMap>
-            </div>
-        </div>  
+          </div>
+        </div>
       </div>
+    </React.Fragment>
   );
 }
 
@@ -206,14 +229,16 @@ function Locate({ panTo, setLocationOnMap }) {
               lat: position.coords.latitude,
               lng: position.coords.longitude,
             });
-            setLocationOnMap({lat:position.coords.latitude, lng: position.coords.longitude })
-           },
+            setLocationOnMap({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            });
+          },
           () => null
         );
       }}
     >
       My location
-
     </button>
   );
 }
@@ -244,9 +269,9 @@ function Search({ panTo, setLocationOnMap }) {
 
     try {
       const results = await getGeocode({ address });
-      console.log(results)
-      const place_id = results[0].place_id
-      console.log(place_id)
+      console.log(results);
+      const place_id = results[0].place_id;
+      console.log(place_id);
       const { lat, lng } = await getLatLng(results[0]);
       panTo({ lat, lng });
       setLocationOnMap({ lat, lng, place_id });
@@ -259,10 +284,11 @@ function Search({ panTo, setLocationOnMap }) {
     <div className="search">
       <Combobox onSelect={handleSelect}>
         <ComboboxInput
+          className="search-input"
           value={value}
           onChange={handleInput}
           disabled={!ready}
-          placeholder="Search your location"
+          placeholder="Search a fun location!"
         />
         <ComboboxPopover>
           <ComboboxList>
