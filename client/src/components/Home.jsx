@@ -122,7 +122,7 @@ export default function Home() {
 
       <div style={{ display: "flex" }} className="map-container mtxl pll prl">
         {markers.length > 0 && (
-          <div style={{ flex: 1 }} className="hotspotList mrl">
+          <div style={{ flex: 1 }} className="hotspotList ">
             <h4 className="your-hotspots mtl">
               {markers.length > 0 ? "YOUR HOTSPOTS" : "FIND A SPOT YOU LIKE!"}
             </h4>

@@ -47,6 +47,7 @@ border-radius: 14px;
 .search-container {
     max-width: 600px;
     margin: auto;
+    padding: 0px 20px;
 }
 
 div.hotspot-list-container::-webkit-scrollbar {
@@ -66,4 +67,18 @@ div.hotspot-list-container::-webkit-scrollbar-thumb {
     border-radius: 8px;
     padding-left: 10px;
     margin-left: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+    .map-container {
+        flex-direction: column;
+    }
+    .hotspot-list-container {
+        max-height: 300px;
+    }
+    div.hotspot-list-container::-webkit-scrollbar {
+        width: 10px;
+        margin-left: 5px;
+        padding-left: 5px;
+    }
 }
