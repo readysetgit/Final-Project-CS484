@@ -101,7 +101,7 @@ export default function Home() {
             phone: details.formatted_phone_number,
             website: details.website,
             google_url: details.url,
-            logo: details.photos[0] ? details.photos[0].getUrl() : null,
+            logo: details.photos ? details.photos[0].getUrl() : null,
             time: new Date(),
           },
         ];
