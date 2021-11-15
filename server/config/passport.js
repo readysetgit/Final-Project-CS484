@@ -1,41 +1,41 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
-const connection = require("./database");
-const User = connection.models.User;
-
+const db = require("../db/sql");
+const scripts = require('../db/scripts')
 const customFields = {
   usernameField: "username",
   passwordField: "password",
 };
 
-passport.use(new LocalStrategy(customFields, async (username, password, done) => {
-    try {
-        //   user = await User.findOne({ username: username });
-          if (!user) { return done(null, false); }
-          
-          bcrypt.compare(password, user.passwordHash, (err, isValid) => {
-              if (err) throw err;
-              if (isValid) {
-                  return done(null, user);
-              } else {
-                  return done(null, false);
-              }
-          });
-    } catch (err) {
-           return done(err);
-    }                                                                               
- }));
+passport.use(
+  new LocalStrategy(customFields, (username, password, done) => {
+
+    db.get(scripts.GET_USER_BY_USERNAME, username, (err, row) => {
+        if (!row) return done(null, false);
+        console.log(row.password)
+        bcrypt.compare(password, row.password, (err, isValid) => {
+          if (err) throw err;
+          if (isValid) {
+            console.log('Password is valid')
+            return done(null, row);
+          } else {
+            console.log('Password is valid')
+            return done(null, false, { message: "Incorrect username or password"});
+          }
+        });
+      }
+    );
+  })
+);
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
-})
+  done(null, user.username);
+});
 
-passport.deserializeUser((userId, done) => {
-    user = User.findById(userId)
-               .then((user) => {
-                   console.log(user)
-                   done(null, user);
-               })
-               .catch(err => done(err))
-})
+passport.deserializeUser((username, done) => {
+  db.get(`SELECT username FROM users WHERE username = ?`, username, function (err, row) {
+    if (!row) return done(null, false);
+    return done(null, row);
+  });
+});

@@ -9,7 +9,6 @@ export default class Login extends Component {
 
     constructor(props) {
         super(props);
-
         this.state = {username: '', password: '', showPage: false};
     }
 
@@ -18,7 +17,8 @@ export default class Login extends Component {
         .then(res => {
             let isLoggedIn =  res.data.isLoggedIn;
             if (isLoggedIn === true) {
-              this.props.history.push("/dashboard");
+              console.log(this.props)
+              this.props.onLoggedin()
             } else {
               this.setState({showPage: true})
               this.username.current.focus();
@@ -33,10 +33,10 @@ export default class Login extends Component {
              .then(res => { 
                  console.log(res.data); 
                  Auth.logIn(res.data.username, res.data.name)
-                 this.props.history.push("/dashboard");
+                 this.props.onLoggedin()
              }).catch(err => { 
                  console.error(err);
-                 alert('Incorrect username or password')
+                 alert(err)
              })
     }
 

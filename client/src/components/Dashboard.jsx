@@ -3,6 +3,7 @@ import lightbulb from '../assets/lightbulb.svg'
 import '../styles/dashboard.css'
 import axios from 'axios';
 import * as Auth from '../auth'
+import { authenticate } from "passport";
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ export default class Dashboard extends Component {
           this.props.history.push("/login");
         } else {
           this.setState({showPage: true})
+          Auth.logIn({})
         }
     })
     .catch(err => console.log(err))
