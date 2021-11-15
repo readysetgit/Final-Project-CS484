@@ -165,20 +165,26 @@ export default function Home() {
                         <div className="plm ptm pbm prm place-details">
                           <h3>{ selected.name }</h3>
                           <p>{ selected.address }</p>
-                          <p>
-                            <a href="tel:selected.phone">
-                            { selected.phone }
-                            </a>
-                          </p>
+                          <div style={{display:'flex', justifyContent:'space-between'}}>
+                            <p>
+                              <a href={"tel:" + selected.phone}>
+                              { selected.phone }
+                              </a>
+                            </p>
+                            <p>
+                              <a href={selected.website} target="_blank">Website</a>
+                            </p>
+                            <p>
+                              <a href={selected.google_url} target="_blank">Google URL</a>
+                            </p>
+
+                          </div>
+                          
+
                         </div>
                       </div>
 
-                      <p> 
-                        <a href={selected.website} target="_blank">Website</a>
-                      </p>
-                      <p>
-                        <a href={selected.google_url} target="_blank">Google URL</a>
-                      </p>
+                      
                     </div>
                 </InfoWindow>
                 ) : null}
