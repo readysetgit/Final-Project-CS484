@@ -25,3 +25,12 @@
 .bulb {
     transform: translate(0, -20px);
 }
+
+.place-item {
+    padding: 10px;
+}
+
+.place-item:hover {
+    background: grey;
+    cursor: pointer;
+}

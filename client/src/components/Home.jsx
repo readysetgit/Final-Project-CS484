@@ -1,4 +1,5 @@
 import React from "react";
+import '../styles/home.css'
 import {
   GoogleMap,
   useLoadScript,
@@ -76,15 +77,19 @@ export default function Home() {
       }
 
       let details = await getDetails({ placeId: place_id });
+
+      // ES6 syntax
+      // fat arrow syntax 
       setMarkers((current) => {
         // Check if user has already marked the place
+        console.log('THESEE ARE THE CURRENT MARKERS!!!!!!')
+        console.log(current)
         let prev_index = current.findIndex(
           (x) => x.lat === lat && x.lng === lng
         );
         if (prev_index > -1) {
           return current;
         }
-
         return [
           ...current,
           {
@@ -92,6 +97,11 @@ export default function Home() {
             lng: lng,
             placeId: place_id,
             address: details.formatted_address,
+            name: details.name,
+            phone: details.formatted_phone_number,
+            website: details.website,
+            google_url: details.url,
+            logo: details.photos[0] ? details.photos[0].getUrl() : null,
             time: new Date(),
           },
         ];
@@ -100,66 +110,21 @@ export default function Home() {
     []
   );
 
-  // const setLocationOnMap = React.useCallback(({ lat, lng, place_id = -1 }) => {
-  //     if (place_id !== -1) {
-  //       const param = {
-  //         placeId: place_id,
-  //       };
-  //       getDetails(param)
-  //         .then((res) => {
-  //           setMarkers((current) => { 
-  //             let prev_index = current.findIndex(x => x.lat === lat && x.lng === lng)
-  //             if (prev_index > -1) {
-  //               return current;
-  //             }
-  //             return [
-  //             ...current,
-  //             {
-  //               lat: lat,
-  //               lng: lng,
-  //               address: res.formatted_address,
-  //               time: new Date(),
-  //             },
-  //           ]
-  //         });
-  //         })
-  //         .catch((e) => console.error(e));
-  //     } else {
-  //       const latlng = {lat: lat, lng: lng}
-  //       getGeocode({location: latlng}).then((res) => {
-  //         console.log('PLACE ID FROM GEOCODE')
-  //         console.log(res)
-  //         getDetails({placeId: res[1].place_id}).then(details => {
-  //           setMarkers((current) => {
-  //             let prev_index = current.findIndex(x => x.lat === lat && x.lng === lng)
-  //             if (prev_index > -1) {
-  //               return current;
-  //             }
-  //           return [
-  //             ...current,
-  //             {
-  //               lat: lat,
-  //               lng: lng,
-  //               placeId: res[1].place_id,
-  //               address: details.formatted_address,
-  //               time: new Date(),
-  //             },
-  //           ]
-  //         });
-  //         })
-
-  //       }).catch(e => console.error(e))
-  //     }
-  // }, []);
-
   if (loadError) return "Error";
   if (!isLoaded) return "Loading...";
+   
+  const onClickHotspot = ({lat,lng}) => {
+    panTo({lat: lat, lng: lng})
+    let currentMarker = markers.filter(m => m.lat === lat && m.lng === lng)
+    //console.log(currentMarker)
+    // TODO: Click on Marker programmatically
+  }
 
   return (
       <div style={{display:'flex'}} className="map-container mtxl pll prl">
         <div style={{flex:1}} className="hotspotList">
             <ul>
-                {markers.map((spot, i) => <li key={spot.lat}>{spot.address || spot.lat}</li>)}
+                {markers.map((spot, i) => <li onClick={() => onClickHotspot({lat: spot.lat, lng: spot.lng})} className="place-item" key={spot.lat}>{spot.address || spot.lat}</li>)}
                 <Search panTo={panTo} setLocationOnMap={setLocationOnMap} />
             </ul>
         </div>
@@ -193,9 +158,27 @@ export default function Home() {
                     }}
                 >
                     <div>
-                      <h2>
-                          {selected.address}
-                      </h2>
+                      <div style={{display:'flex'}}>
+                        <div className="place-logo">
+                          <img className="img-logo" src={selected.logo} alt="Place logo"/>
+                        </div>
+                        <div className="plm ptm pbm prm place-details">
+                          <h3>{ selected.name }</h3>
+                          <p>{ selected.address }</p>
+                          <p>
+                            <a href="tel:selected.phone">
+                            { selected.phone }
+                            </a>
+                          </p>
+                        </div>
+                      </div>
+
+                      <p> 
+                        <a href={selected.website} target="_blank">Website</a>
+                      </p>
+                      <p>
+                        <a href={selected.google_url} target="_blank">Google URL</a>
+                      </p>
                     </div>
                 </InfoWindow>
                 ) : null}
