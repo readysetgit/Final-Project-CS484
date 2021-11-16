@@ -39,13 +39,20 @@ const center = {
   lng: -79.3832,
 };
 
-export default function Home() {
+export default function Home(props) {
+
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
   const [markers, setMarkers] = React.useState([]);
   const [selected, setSelected] = React.useState(null);
+  setMarkers((current) => {
+    return [
+      ...current,
+      ...props.locations
+    ]
+  })
 
   const onMapClick = (e) => {
     let lat = e.latLng.lat();

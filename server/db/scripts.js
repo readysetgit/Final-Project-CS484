@@ -15,21 +15,21 @@ const scripts = {
         )`,
     CREATE_LOCATIONS_TABLE:
     `CREATE TABLE if not EXISTS locations (
-      location_id INTEGER AUTOINCREMENT,
+      location_id INTEGER NOT NULL,
       lat TEXT,
       lng TEXT,
       place_id TEXT,
-      location_details TEXT
-      like_num INTEGER
-      dislike_num INTEGER
-      PRIMARY KEY (place_id, lat, lng)
+      location_details TEXT,
+      like_num INTEGER,
+      dislike_num INTEGER,
+      PRIMARY KEY (location_id, place_id, lat, lng)
       )`,
     CREATE_LOC_USER_REL_TABLE:
     `CREATE TABLE if not EXISTS loc_user_rel (
-      id INTEGER AUTOINCREMENT,
+      id INTEGER NOT NULL,
       location_id INTEGER NOT NULL,
       username TEXT NOT NULL, 
-      PRIMARY KEY (location_id, username)
+      PRIMARY KEY (id, location_id, username)
       )`,
   };
   

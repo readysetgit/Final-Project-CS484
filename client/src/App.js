@@ -21,6 +21,7 @@ class App extends Component {
       oldname: localStorage.getItem('name') || "",
       username: localStorage.getItem('username') || "",
       isEditing: false,
+      locations: []
     };
   }
 
