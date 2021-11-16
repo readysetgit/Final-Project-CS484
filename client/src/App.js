@@ -96,6 +96,19 @@ class App extends Component {
     .catch((err) => console.error(err));
   }
 
+  handlePlaceDelete = (location_id) => {
+    axios
+    .delete("/deletelocation", {location_id: location_id})
+    .then((res) => {
+      console.log(res)
+      let newlocations = this.state.locations;
+      let delete_index = newlocations.findIndex(x => x.location_id === location_id)
+      newlocations.splice(delete_index, 1);
+      this.setState({locations: newlocations})
+    })
+    .catch((err) => console.error(err));
+  }
+
   render() {
     return (
       <div>
@@ -104,7 +117,7 @@ class App extends Component {
           <Switch>
             <Route path="/signup" component={Signup}/>
             <Route path="/login" component={() => (<Login onLoggedin={this.onLoggedin} />)}/>
-            <Route path="/dashboard" component={ () => (<Home locations={this.state.locations} handleAddLocation={this.handleAddLocation} />)}/>
+            <Route path="/dashboard" component={ () => (<Home locations={this.state.locations} handleAddLocation={this.handleAddLocation} handlePlaceDelete={this.handlePlaceDelete}/>)}/>
             <Route exact path="/" component={Login}/>
           </Switch>
         </div>

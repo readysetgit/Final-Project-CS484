@@ -109,6 +109,7 @@ export default function Home(props) {
 
   if (loadError) return "Error";
   if (!isLoaded) return "Loading...";
+  
 
   const onClickHotspot = ({ lat, lng }) => {
     panTo({ lat: lat, lng: lng });
@@ -154,9 +155,14 @@ export default function Home(props) {
                     onClickHotspot({ lat: spot.lat, lng: spot.lng })
                   }
                   className="place-item bold"
+                  style={{display:'flex', justifyContent:'space-between'}}
                   key={spot.lat}
                 >
-                  {spot.details.name || spot.details.formatted_address}
+                  
+                  <span>{spot.details.name || spot.details.formatted_address}</span>
+                  <span className="delete-icon" onClick={() => {props.handlePlaceDelete(spot.location_id)}}>
+                    &#x1f5d1; 
+                  </span>
                 </p>
               ))}
             </div>

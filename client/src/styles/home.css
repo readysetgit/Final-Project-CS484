@@ -82,3 +82,11 @@ div.hotspot-list-container::-webkit-scrollbar-thumb {
         padding-left: 5px;
     }
 }
+
+.delete-icon {
+    display: none;
+}
+
+.place-item:hover .delete-icon {
+    display: block;
+}
