@@ -7,7 +7,11 @@
 
 ### 1. Navigate to client/
 ### 2. Create a `.env` file
-### 3. Paste this line of code in the file `SKIP_PREFLIGHT_CHECK=true`
+### 3. Paste this code in the file 
+```
+SKIP_PREFLIGHT_CHECK=true
+REACT_APP_GOOGLE_MAPS_API_KEY=AIzaSyDeqvb-6jsy-1VP0s-iN1-q9BVBNrh7ado
+```
 ### 4. Follow the instructions below 
 
 ## Magic command -
