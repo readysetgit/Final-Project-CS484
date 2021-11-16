@@ -1,4 +1,4 @@
-import React, { Component }from "react";
+import React, { Component, useEffect  }from "react";
 import "./styles/App.css";
 import './styles/helpers.css'
 import Login from './components/Login'
@@ -32,9 +32,10 @@ class App extends Component {
         if (isLoggedIn === false) {
           this.props.history.push("/login");
         } else {
-          console.log(res)
-          Auth.logIn(res.data.username, res.data.name)
+          //console.log(res)
           this.setState({showPage: true, name: res.data.name, username: res.data.username})
+          Auth.logIn(res.data.username, res.data.name)
+          this.handleGetLocations()
           this.props.history.push("/dashboard");
         }
     })
@@ -48,7 +49,7 @@ class App extends Component {
         .delete("/delete")
         .then((res) => {
           Auth.logOut();
-          this.setState({})
+          this.setState({showPage: false})
           this.onLoggedOut()
           this.props.history.push("/login");
         })
@@ -68,6 +69,7 @@ class App extends Component {
   };
 
   onLoggedin = () => {
+    this.handleGetLocations()
     this.setState({showPage: true, username: localStorage.getItem('username'), name: localStorage.getItem('name')})
     this.props.history.push("/dashboard");
   }
@@ -76,6 +78,22 @@ class App extends Component {
     this.setState({showPage: false})
   }
 
+  handleGetLocations = () => {
+    axios.get("/getlocations").then((res) => {
+      this.setState({locations:res.data})
+      console.log(res.data)
+    })
+    .catch((err) => console.error(err));
+  }
+
+  handleAddLocation = (params) => {
+    axios
+    .post("/addlocation", params)
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => console.error(err));
+  }
   render() {
     return (
       <div>
@@ -84,7 +102,7 @@ class App extends Component {
           <Switch>
             <Route path="/signup" component={Signup}/>
             <Route path="/login" component={() => (<Login onLoggedin={this.onLoggedin} />)}/>
-            <Route path="/dashboard" component={Home}/>
+            <Route path="/dashboard" component={ () => (<Home locations={this.state.locations} handleAddLocation={this.handleAddLocation} />)}/>
             <Route exact path="/" component={Login}/>
           </Switch>
         </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/home.css";
 import {
   GoogleMap,
@@ -40,19 +40,12 @@ const center = {
 };
 
 export default function Home(props) {
-
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
   const [markers, setMarkers] = React.useState([]);
   const [selected, setSelected] = React.useState(null);
-  setMarkers((current) => {
-    return [
-      ...current,
-      ...props.locations
-    ]
-  })
 
   const onMapClick = (e) => {
     let lat = e.latLng.lat();
@@ -91,18 +84,20 @@ export default function Home(props) {
         if (prev_index > -1) {
           return current;
         }
+        props.handleAddLocation({lat: JSON.stringify(lat), lng: JSON.stringify(lng), location_details: JSON.stringify(details), place_id, like_num:0, dislike_num:0})
         return [
           ...current,
           {
             lat: lat,
             lng: lng,
             placeId: place_id,
-            address: details.formatted_address,
-            name: details.name,
-            phone: details.formatted_phone_number,
-            website: details.website,
-            google_url: details.url,
-            logo: details.photos ? details.photos[0].getUrl() : null,
+            details: details,
+           // address: details.formatted_address,
+            //name: details.name,
+            //phone: details.formatted_phone_number,
+            //website: details.website,
+            //google_url: details.url,
+            // logo: details.photos ? details.photos[0].getUrl() : null,
             time: new Date(),
           },
         ];
@@ -120,6 +115,24 @@ export default function Home(props) {
     //console.log(currentMarker)
     // TODO: Click on Marker programmatically
   };
+
+    if (markers.length !== Object.values(props.locations).length) {
+      setMarkers((current) => {
+        let locationsArray = Object.values(props.locations)
+        locationsArray = locationsArray.map((x) => {
+          x.lat = parseFloat(x.lat)
+          x.lng = parseFloat(x.lng)
+          //debugger
+          x.details = JSON.parse(x.location_details) 
+          return x
+        })
+        console.log(locationsArray)
+        return [
+          ...current,
+          ...locationsArray
+        ]
+      })
+    }
 
   return (
     <React.Fragment>
@@ -142,7 +155,7 @@ export default function Home(props) {
                   className="place-item bold"
                   key={spot.lat}
                 >
-                  {spot.name || spot.address}
+                  {spot.details.name || spot.details.formatted_address}
                 </p>
               ))}
             </div>
@@ -183,13 +196,13 @@ export default function Home(props) {
                       <div className="place-logo">
                         <img
                           className="img-logo"
-                          src={selected.logo}
+                          src={selected.details.photos ? selected.details.photos[0].getUrl() : null}
                           alt="Place logo"
                         />
                       </div>
                       <div className="plm ptm pbm prm place-details">
-                        <h3>{selected.name}</h3>
-                        <p>{selected.address}</p>
+                        <h3>{selected.details.name}</h3>
+                        <p>{selected.details.formatted_address}</p>
                         <div
                           style={{
                             display: "flex",
@@ -197,17 +210,17 @@ export default function Home(props) {
                           }}
                         >
                           <p>
-                            <a href={"tel:" + selected.phone}>
-                              {selected.phone}
+                            <a href={"tel:" + selected.formatted_phone_number}>
+                              {selected.details.formatted_phone_number}
                             </a>
                           </p>
                           <p>
-                            <a href={selected.website} target="_blank">
+                            <a href={selected.details.website} target="_blank">
                               Website
                             </a>
                           </p>
                           <p>
-                            <a href={selected.google_url} target="_blank">
+                            <a href={selected.details.url} target="_blank">
                               Google URL
                             </a>
                           </p>

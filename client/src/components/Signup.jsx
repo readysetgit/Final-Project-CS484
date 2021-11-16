@@ -12,16 +12,16 @@ export default class Signup extends Component {
     }
 
     componentDidMount() {
-        axios.get('/authenticate')
-        .then(res => {
-            let isLoggedIn =  res.data.isLoggedIn;
-            if (isLoggedIn === true) {
-              this.props.history.push("/dashboard");
-            } else {
-              this.setState({showPage: true})
-            }
-        })
-        .catch(err => console.log(err))
+        // axios.get('/authenticate')
+        // .then(res => {
+        //     let isLoggedIn =  res.data.isLoggedIn;
+        //     if (isLoggedIn === true) {
+        //       this.props.history.push("/dashboard");
+        //     } else {
+        //       this.setState({showPage: true})
+        //     }
+        // })
+        // .catch(err => console.log(err))
     }
 
     handleSignup = () => {
@@ -59,7 +59,7 @@ export default class Signup extends Component {
 
 
 
-    renderBody() {
+    render() {
         return (
             <div className="main-container">
                 <div className="logo-container">
@@ -86,8 +86,8 @@ export default class Signup extends Component {
         );
     }
 
-    render() {
-        return (this.state.showPage === true && this.renderBody())
-    }
+    // render() {
+    //     return (this.state.showPage === true && this.renderBody())
+    // }
 }
 

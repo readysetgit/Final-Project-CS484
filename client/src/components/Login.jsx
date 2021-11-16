@@ -13,18 +13,17 @@ export default class Login extends Component {
     }
 
     componentDidMount() {
-        axios.get('/authenticate')
-        .then(res => {
-            let isLoggedIn =  res.data.isLoggedIn;
-            if (isLoggedIn === true) {
-              console.log(this.props)
-              this.props.onLoggedin()
-            } else {
-              this.setState({showPage: true})
-              this.username.current.focus();
-            }
-        })
-        .catch(err => console.log(err))
+        // axios.get('/authenticate')
+        // .then(res => {
+        //     let isLoggedIn =  res.data.isLoggedIn;
+        //     if (isLoggedIn === true) {
+        //       console.log(this.props)
+        //     } else {
+        //       this.setState({showPage: true})
+        //       this.username.current.focus();
+        //     }
+        // })
+        // .catch(err => console.log(err))
         
     }
 
@@ -49,7 +48,7 @@ export default class Login extends Component {
     }
 
 
-    renderBody() {
+    render() {
         return (
             <div className="main-container">
                 <div className="logo-container">
@@ -73,7 +72,7 @@ export default class Login extends Component {
         );
     }
 
-    render() {
-        return (this.state.showPage === true && this.renderBody())
-    }
+    // render() {
+    //     return (this.state.showPage === true && this.renderBody())
+    // }
 }
