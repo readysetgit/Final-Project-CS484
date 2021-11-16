@@ -126,7 +126,7 @@ export default function Home() {
             <h4 className="your-hotspots mtl">
               {markers.length > 0 ? "YOUR HOTSPOTS" : "FIND A SPOT YOU LIKE!"}
             </h4>
-            <div class="hotspot-list-container">
+            <div className="hotspot-list-container">
               {markers.map((spot, i) => (
                 <p
                   onClick={() =>
