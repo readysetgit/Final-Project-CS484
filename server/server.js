@@ -71,42 +71,39 @@ app.post("/logout", (req, res, next) => {
 
 // Signup
 app.post("/signup", async (req, res, next) => {
-  // check if username exists
-  let userobj = await User.findOne({ username: req.body.username });
-  if (userobj !== null) {
-    res.status(403).send({ error: "Username is taken, try logging in" });
-    return;
-  } else {
-    bcrypt.hash(req.body.password, 10, (err, hash) => {
-      // creates a new user objects
-      const newUser = new User({
-        username: req.body.username,
-        name: req.body.name,
-        passwordHash: hash,
-      });
-
-      // Saves to mongodb database
-      newUser.save().then((user) => {
-        res.send({ username: user.username, name: user.name });
-      });
-    });
-  }
+  db.get(scripts.GET_USER_BY_USERNAME, req.body.username, (err, row) => {
+    if (row !== undefined) {
+        res.status(403).send({ error: "Username is taken, try logging in" });
+        return;
+      } else {
+        bcrypt.hash(req.body.password, 10, (err, hash) => {
+          db.run(scripts.ADD_USER, req.body.username, hash, req.body.name, (err, newrow) => {
+            if (err) {
+              return console.log(err.message);
+            }
+            // get the last insert id
+            console.log(`Added new user with username ${req.body.username}`);
+            res.send({ username: req.body.username, name: req.body.name });
+          });
+        });
+      }
+  })
 });
 
 // Update User Details
-app.put("/update", async (req, res) => {
-  User.updateOne(
-    { username: req.user.username },
-    { $set: { name: req.body.name } }
-  )
-    .then((data) => {
-      console.log(data);
-      res.send(data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+// app.put("/update", async (req, res) => {
+  // User.updateOne(
+  //   { username: req.user.username },
+  //   { $set: { name: req.body.name } }
+  // )
+  //   .then((data) => {
+  //     console.log(data);
+  //     res.send(data);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+// });
 
 // Delete User
 app.delete("/delete", (req, res) => {
@@ -126,6 +123,24 @@ app.get("/authenticate", (req, res, next) => {
   }
 });
 
+// Add location by username and place_id
+app.post("/addlocation", (req, res, next) => {
+  db.run(scripts.ADD_NEW_LOCATION, req.bodylat, req.body.lng, req.body.location_details, req.body.like_num, req.body.dislike_num, (err, row) => {
+    console.log(row)
+    db.run(scripts.ADD_LOCATION_BY_PLACE_ID_USERNAME, row.location_id, req.user.username, (err, newrow) => {
+      if (err) throw err;
+      res.send(newrow)
+    })
+  })
+})
+
+// Delete location by username and place_id
+app.delete("/deletelocation", (req, res, next) => {
+  db.run(scripts.DELETE_LOCATION_BY_USERNAME_LOCATION_ID, req.user.username, req.body.location_id, (err) => {
+    if (err) throw err
+    res.send("Successfully deleted location")
+  })
+})
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
