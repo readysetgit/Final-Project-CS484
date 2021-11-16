@@ -128,14 +128,17 @@ app.get("/authenticate", (req, res, next) => {
 
 // Add location by username and place_id
 app.post("/addlocation", (req, res, next) => {
-  db.run(scripts.ADD_NEW_LOCATION, req.body.lat, req.body.lng, req.body.location_details, req.body.place_id, req.body.like_num, req.body.dislike_num, (err) => {
+  db.run(scripts.ADD_NEW_LOCATION, req.body.lat, req.body.lng, req.body.location_details, req.body.photo_url, req.body.place_id, req.body.like_num, req.body.dislike_num, (err) => {
     if (err) throw err
-    console.log('FROM THE FATASBBAFEJK:ADFL')
     db.get(scripts.GET_LOCATION_BY_LAT_LNG, req.body.lat, req.body.lng, (err, row) => {
+      if (err) throw err;
       console.log(row)
-      db.get(scripts.ADD_LOCATION_BY_LOCATION_ID_USERNAME, row.location_id, req.user.username, (err, newrow) => {
+      db.run(scripts.ADD_LOCATION_BY_LOCATION_ID_USERNAME, row.location_id, req.user.username, (err) => {
         if (err) throw err;
-        res.send(newrow)
+        db.get(scripts.GET_LOCATION_BY_LOCATION_ID, row.location_id, (err, newestrow) => {
+          if (err) throw err;
+          res.send(newestrow)
+        })
       })
     })
 

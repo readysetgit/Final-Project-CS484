@@ -84,23 +84,24 @@ export default function Home(props) {
         if (prev_index > -1) {
           return current;
         }
-        props.handleAddLocation({lat: JSON.stringify(lat), lng: JSON.stringify(lng), location_details: JSON.stringify(details), place_id, like_num:0, dislike_num:0})
-        return [
-          ...current,
-          {
-            lat: lat,
-            lng: lng,
-            placeId: place_id,
-            details: details,
-           // address: details.formatted_address,
-            //name: details.name,
-            //phone: details.formatted_phone_number,
-            //website: details.website,
-            //google_url: details.url,
-            // logo: details.photos ? details.photos[0].getUrl() : null,
-            time: new Date(),
-          },
-        ];
+        props.handleAddLocation({lat: JSON.stringify(lat), lng: JSON.stringify(lng), location_details: JSON.stringify(details), photo_url: details.photos ? details.photos[0].getUrl() : null, place_id, like_num:0, dislike_num:0})
+        return current
+        // return [
+        //   ...current,
+        //   {
+        //     lat: lat,
+        //     lng: lng,
+        //     placeId: place_id,
+        //     details: details,
+        //    // address: details.formatted_address,
+        //     //name: details.name,
+        //     //phone: details.formatted_phone_number,
+        //     //website: details.website,
+        //     //google_url: details.url,
+        //     // logo: details.photos ? details.photos[0].getUrl() : null,
+        //     time: new Date(),
+        //   },
+        // ];
       });
     },
     []
@@ -193,13 +194,7 @@ export default function Home(props) {
                 >
                   <div>
                     <div style={{ display: "flex" }}>
-                      <div className="place-logo">
-                        <img
-                          className="img-logo"
-                          src={selected.details.photos ? selected.details.photos[0].getUrl() : null}
-                          alt="Place logo"
-                        />
-                      </div>
+                      { selected.photo_url && <div className="place-logo"><img className="img-logo" src={selected.photo_url} alt="Place logo" /> </div>}
                       <div className="plm ptm pbm prm place-details">
                         <h3>{selected.details.name}</h3>
                         <p>{selected.details.formatted_address}</p>
@@ -209,21 +204,9 @@ export default function Home(props) {
                             justifyContent: "space-between",
                           }}
                         >
-                          <p>
-                            <a href={"tel:" + selected.formatted_phone_number}>
-                              {selected.details.formatted_phone_number}
-                            </a>
-                          </p>
-                          <p>
-                            <a href={selected.details.website} target="_blank">
-                              Website
-                            </a>
-                          </p>
-                          <p>
-                            <a href={selected.details.url} target="_blank">
-                              Google URL
-                            </a>
-                          </p>
+                          { selected.details.formatted_phone_number &&  <p><a href={"tel:" + selected.details.formatted_phone_number} target="_blank">{selected.details.formatted_phone_number}</a></p> }
+                          { selected.details.website &&  <p><a href={selected.details.website} target="_blank">Website</a></p> }
+                          { selected.details.url &&  <p><a href={selected.details.url} target="_blank">Google URL</a></p> }
                         </div>
                       </div>
                     </div>

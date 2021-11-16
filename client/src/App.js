@@ -91,9 +91,11 @@ class App extends Component {
     .post("/addlocation", params)
     .then((res) => {
       console.log(res)
+      this.setState({locations: [...this.state.locations, res.data]})
     })
     .catch((err) => console.error(err));
   }
+
   render() {
     return (
       <div>

@@ -1,12 +1,16 @@
 const scripts = {
-    GET_USER_BY_USERNAME: "SELECT * from users WHERE username = ?",
     ADD_USER: "INSERT INTO users (username, password, name) VALUES (?,?,?)",
-    GET_LOCATION_BY_LAT_LNG: "SELECT * FROM locations WHERE lat = ? AND lng = ?",
+    GET_USER_BY_USERNAME: "SELECT * from users WHERE username = ?",
     DELETE_ACCOUNT_BY_USERNAME: "DELETE from users WHERE username = ?",
-    ADD_NEW_LOCATION: "INSERT INTO locations (lat, lng, location_details, place_id, like_num, dislike_num) VALUES (?,?,?,?,?,?)",
+
+    ADD_NEW_LOCATION: "INSERT INTO locations (lat, lng, location_details, photo_url, place_id, like_num, dislike_num) VALUES (?,?,?,?,?,?,?)",
+    GET_LOCATION_BY_LAT_LNG: "SELECT * FROM locations WHERE lat = ? AND lng = ?",
+    GET_LOCATION_BY_LOCATION_ID:"SELECT * FROM locations WHERE location_id = ?",
+    DELETE_LOCATION_BY_LOCATION_ID: "DELETE FROM locations WHERE location_id = ?",
+
     ADD_LOCATION_BY_LOCATION_ID_USERNAME: "INSERT INTO loc_user_rel (location_id, username) VALUES (?,?)",
     DELETE_LOCATION_BY_USERNAME_LOCATION_ID: "DELETE FROM loc_user_rel WHERE username = ? AND location_id = ?",
-    DELETE_LOCATION_BY_LOCATION_ID: "DELETE FROM locations WHERE location_id = ?",
+    
     GET_LOCATIONS_BY_USERNAME: `
       SELECT *
       FROM locations
@@ -27,6 +31,7 @@ const scripts = {
       lng TEXT,
       place_id TEXT,
       location_details TEXT,
+      photo_url TEXT,
       like_num INTEGER,
       dislike_num INTEGER
       )`,
