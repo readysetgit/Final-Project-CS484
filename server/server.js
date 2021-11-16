@@ -73,7 +73,6 @@ app.post("/logout", (req, res, next) => {
 
 // Signup
 app.post("/signup", async (req, res, next) => {
-  console.log(req.body.username)
   db.get(scripts.GET_USER_BY_USERNAME, req.body.username, (err, row) => {
     if (row !== undefined) {
         res.status(403).send({ error: "Username is taken, try logging in" });
@@ -94,7 +93,7 @@ app.post("/signup", async (req, res, next) => {
 });
 
 // Update User Details
-app.put("/update", async (req, res) => {
+// app.put("/update", async (req, res) => {
   // User.updateOne(
   //   { username: req.user.username },
   //   { $set: { name: req.body.name } }
@@ -106,7 +105,7 @@ app.put("/update", async (req, res) => {
   //   .catch((err) => {
   //     console.log(err);
   //   });
-});
+// });
 
 // Delete User
 app.delete("/delete", (req, res) => {
@@ -127,6 +126,24 @@ app.get("/authenticate", (req, res, next) => {
   }
 });
 
+// Add location by username and place_id
+app.post("/addlocation", (req, res, next) => {
+  db.run(scripts.ADD_NEW_LOCATION, req.bodylat, req.body.lng, req.body.location_details, req.body.like_num, req.body.dislike_num, (err, row) => {
+    console.log(row)
+    db.run(scripts.ADD_LOCATION_BY_PLACE_ID_USERNAME, row.location_id, req.user.username, (err, newrow) => {
+      if (err) throw err;
+      res.send(newrow)
+    })
+  })
+})
+
+// Delete location by username and place_id
+app.delete("/deletelocation", (req, res, next) => {
+  db.run(scripts.DELETE_LOCATION_BY_USERNAME_LOCATION_ID, req.user.username, req.body.location_id, (err) => {
+    if (err) throw err
+    res.send("Successfully deleted location")
+  })
+})
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
