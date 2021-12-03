@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: deploy-to-heroku
 
 on:
   push:
@@ -13,10 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
     - uses: actions/checkout@v2
+    - name: Checkout
+    - uses: akhileshns/heroku-deploy@v3.12.12
     - name: Containerize, push and deploy to Heroku
-      uses: xyz/heroku-deploy@v3.12.12 ## USE OUR OWN heroku-deploy thingy
+
       with:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
         heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
