@@ -24,8 +24,10 @@ app.use(
   })
 );
 //empty
-//----------------------------- SESSION --------------------------------------------------
 
+app.use(express.static(path.resolve(__dirname, "../client/build")));
+
+//----------------------------- SESSION --------------------------------------------------
 app.use(
   session({
     secret: env.SECRET,
@@ -158,6 +160,10 @@ app.delete("/deletelocation", (req, res, next) => {
     res.send("Successfully deleted location")
   })
 })
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+});
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
