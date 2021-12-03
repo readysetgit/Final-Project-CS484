@@ -7,14 +7,14 @@ services:
     build:
       context: ./server
       dockerfile: ./Dockerfile
-    image: "hotspot-backend"
+    image: "server"
     ports:
       - "3001:3001"
   frontend:
     build:
       context: ./client
       dockerfile: ./Dockerfile
-    image: "hotspot-frontend"
+    image: "client"
     ports:
       - "3000:3000"
     links:
