@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "docker-react-app": "cd client && npm run build",
+    "docker-react-app": "cd client && npm install --production && npm run build",
     "start": "node server/server.js",
     "start-client": "cd client && npm start",
     "start-server": "npm start",
