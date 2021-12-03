@@ -15,26 +15,51 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       name: Checkout
-      
-#     - name: Install server packages
-#       run: npm install
-      
-#     - name: Run tests
+  
+#   test:
+#     runs-on: ubuntu-latest
+    
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
+#         
+#     - name: Unit Tests
 #       run: npm run test
       
-#     - name: Build client image
-#       run:  docker build --pull --rm -f "client/DockerFile" -t client:latest "client" 
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Containerize, push and deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          usedocker: true
+          
+  #     - name: Install server packages
+  #       run: npm install
+
+  #     - name: Run tests
+  #       run: npm run test
+
+  #     - name: Build client image
+  #       run:  docker build --pull --rm -f "client/DockerFile" -t client:latest "client" 
+
+  #     - name: Build server image
+  #       run: docker build --pull --rm -f "Dockerfile" -t server:latest "."
       
-#     - name: Build server image
-#       run: docker build --pull --rm -f "Dockerfile" -t server:latest "."
+#     - name: Add remote origin
+#       # If tests pass, we add ref to heroku and deploy
+#       # if: github.ref == 'refs/heads/main' && job.status == 'success' 
+#       run: git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
       
-    - name: Add remote origin
-      # If tests pass, we add ref to heroku and deploy
-      # if: github.ref == 'refs/heads/main' && job.status == 'success' 
-      run: git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
-      
-    - name: Deploy to Heroku
-      run: git push heroku HEAD:main -f
+#     - name: Deploy to Heroku
+#       run: git push heroku HEAD:main -f
       
 #       with:
 #         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
