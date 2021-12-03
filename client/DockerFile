@@ -1,5 +1,11 @@
-FROM node:14-alpine
-WORKDIR /server
+FROM node:14.17.4
+
+WORKDIR /app
+
+COPY package.json ./
+
+RUN npm install
+
 COPY . .
-RUN npm install --production
-CMD ["node", "/server/server.js"]
+
+CMD ["npm", "start"]

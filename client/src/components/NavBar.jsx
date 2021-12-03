@@ -10,7 +10,7 @@ function NavBar(props) {
                 <div className="nav-logo orange-txt">
                   {/* &#128293;  */}
                   <img src={logo} height="40" weith="40" alt="fiyaahhhh" />
-                  <a target="_blank"> Hotspot </a>
+                  <a target="_blank" href = "google.com"> Hotspot </a>
                 </div>
                 <div className="dropdown">
                   <button className="btn dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
