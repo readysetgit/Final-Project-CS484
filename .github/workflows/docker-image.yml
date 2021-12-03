@@ -36,6 +36,6 @@ jobs:
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           usedocker: true
         env:
-          SECRET: passportjs documentation sucks
+          SECRET: ${{secrets.SECRET}}
           SKIP_PREFLIGHT_CHECK: true
-          REACT_APP_GOOGLE_MAPS_API_KEY: AIzaSyDeqvb-6jsy-1VP0s-iN1-q9BVBNrh7ado
+          REACT_APP_GOOGLE_MAPS_API_KEY: ${{secrets.REACT_APP_GOOGLE_MAPS_API_KEY}} 
