@@ -3,6 +3,9 @@
 # ERD Diagram
 ![Alt text](ERD-hotspot.png?raw=true "ERD diagram")
 
+# LINK TO HEROKU HOSTED WEBAPP 
+`https://hotspot-heroku.herokuapp.com/`
+
 # SETUP INSTRUCTIONS
 
 ### 1. Navigate to client/
