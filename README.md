@@ -18,9 +18,8 @@ REACT_APP_GOOGLE_MAPS_API_KEY=AIzaSyDeqvb-6jsy-1VP0s-iN1-q9BVBNrh7ado
 ```
 npm run grade
 ```
- The above CLI command will install packages for the Nodejs server and React app and then run 2 concurrent servers on the following endpoints - <br><br>
-  React App - `localhost:3000` <br>
-  Nodejs Server - `localhost:3001` <br><br>
+ The above CLI command will install packages for the Nodejs server and build the React app and then run the server - <br><br>
+  Web app - `localhost:3001` <br>
 
 If you want to do it step by step instead, follow the instructions below:
 ## Step by Step - 
@@ -28,7 +27,7 @@ If you want to do it step by step instead, follow the instructions below:
 ``` 
 cd client
 npm install 
-npm start
+npm run build
 ```
 ### 2. Serve files using Nodejs server
 ``` 
@@ -36,8 +35,7 @@ npm start
 npm install 
 npm start
 ```
-The client is now running on `localhost:3000`<br>
-The server is now running on `localhost:3001` 
+The web-app is now running on `localhost:3001`<br> 
 <br><br>
 
 # UNIT TESTING 

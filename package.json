@@ -9,7 +9,7 @@
     "start-client": "cd client && npm start",
     "start-server": "npm start",
     "start-all": "concurrently --kill-others \"cd client && npm start\" \"npm start\"",
-    "grade": "npm install && cd client && npm install && cd .. && npm run start-all",
+    "grade": "npm install && cd client && npm install && npm run build && cd .. && npm start",
     "test": "jest --forceExit"
   },
   "keywords": [],
