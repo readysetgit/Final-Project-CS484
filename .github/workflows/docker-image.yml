@@ -14,14 +14,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Checkout
-    - uses: akhileshns/heroku-deploy@v3.12.12
-    - name: Containerize, push and deploy to Heroku
+      name: Build server image
+      run: docker build --pull --rm -f "Dockerfile" -t server:latest "."
 
-      with:
-        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-        heroku_email: ${{secrets.HEROKU_EMAIL}}
-        docker_compose_file: '../docker-compose.yml' # set the path to the folder where the docker-compose file is located
-        #heroku_apps: '[{"imagename":"app1","appname":"app1","apptype":"web"}, {"imagename":"app2","appname":"app2","apptype":"web"}]'
-        usedocker: true
+    - name: Build client image
+      run:  docker build --pull --rm -f "client\DockerFile" -t client:latest "client" 
+
+#       with:
+#         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+#         heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+#         heroku_email: ${{secrets.HEROKU_EMAIL}}
+#         docker_compose_file: '../docker-compose.yml' # set the path to the folder where the docker-compose file is located
+#         #heroku_apps: '[{"imagename":"app1","appname":"app1","apptype":"web"}, {"imagename":"app2","appname":"app2","apptype":"web"}]'
+#         usedocker: true
