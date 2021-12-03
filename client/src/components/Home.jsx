@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "../styles/home.css";
 import {
   GoogleMap,
@@ -21,7 +21,7 @@ import {
 // import { formatRelative } from "date-fns";
 
 import "@reach/combobox/styles.css";
-import mapStyles from "../mapStyles";
+// import mapStyles from "../mapStyles";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -104,7 +104,7 @@ export default function Home(props) {
         // ];
       });
     },
-    []
+    [props]
   );
 
   if (loadError) return "Error";
@@ -210,9 +210,9 @@ export default function Home(props) {
                             justifyContent: "space-between",
                           }}
                         >
-                          { selected.details.formatted_phone_number &&  <p><a href={"tel:" + selected.details.formatted_phone_number} target="_blank">{selected.details.formatted_phone_number}</a></p> }
-                          { selected.details.website &&  <p><a href={selected.details.website} target="_blank">Website</a></p> }
-                          { selected.details.url &&  <p><a href={selected.details.url} target="_blank">Google URL</a></p> }
+                          { selected.details.formatted_phone_number &&  <p><a rel="noreferrer" href={"tel:" + selected.details.formatted_phone_number} target="_blank">{selected.details.formatted_phone_number}</a></p> }
+                          { selected.details.website &&  <p><a href={selected.details.website} rel="noreferrer" target="_blank">Website</a></p> }
+                          { selected.details.url &&  <p><a href={selected.details.url} rel="noreferrer" target="_blank">Google URL</a></p> }
                         </div>
                       </div>
                     </div>
@@ -227,30 +227,30 @@ export default function Home(props) {
   );
 }
 
-function Locate({ panTo, setLocationOnMap }) {
-  return (
-    <button
-      className="locate"
-      onClick={() => {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            panTo({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            });
-            setLocationOnMap({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            });
-          },
-          () => null
-        );
-      }}
-    >
-      My location
-    </button>
-  );
-}
+// function Locate({ panTo, setLocationOnMap }) {
+//   return (
+//     <button
+//       className="locate"
+//       onClick={() => {
+//         navigator.geolocation.getCurrentPosition(
+//           (position) => {
+//             panTo({
+//               lat: position.coords.latitude,
+//               lng: position.coords.longitude,
+//             });
+//             setLocationOnMap({
+//               lat: position.coords.latitude,
+//               lng: position.coords.longitude,
+//             });
+//           },
+//           () => null
+//         );
+//       }}
+//     >
+//       My location
+//     </button>
+//   );
+// }
 
 function Search({ panTo, setLocationOnMap }) {
   const {
