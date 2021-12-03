@@ -1,11 +1,10 @@
 const app = require("../server");
 const supertest = require("supertest");
-const env = require("../env.json");
 const mongoose = require("mongoose");
 
 describe("API test", () => {
   beforeAll((done) => {
-    mongoose.connect(env.DB_STRING.toString()).then(() => done());
+    mongoose.connect(process.env.DB_STRING.toString()).then(() => done());
   })
 
   afterAll((done) => {

@@ -7,7 +7,6 @@ const db = require('./db/sql')
 const SQLiteStore = require("connect-sqlite3")(session);
 const path = require('path')
 const db_path = path.join(__dirname, "./db/");
-const env = require("./env.json"); 
 // Normally we'd use a ".env" file, but for this assignment, we're using an env.json file instead
 // require('dotenv').config();
 
@@ -30,7 +29,7 @@ app.use(express.static(path.resolve(__dirname, "../client/build")));
 //----------------------------- SESSION --------------------------------------------------
 app.use(
   session({
-    secret: env.SECRET,
+    secret: process.env.SECRET,
     resave: true,
     saveUninitialized: true,
     store: new SQLiteStore({
@@ -162,6 +161,10 @@ app.delete("/deletelocation", (req, res, next) => {
 })
 
 app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+});
+
+app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build", "index.html"));
 });
 
