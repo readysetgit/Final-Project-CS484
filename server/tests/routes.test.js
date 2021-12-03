@@ -1,14 +1,11 @@
 const app = require("../server");
 const supertest = require("supertest");
 const mongoose = require("mongoose");
-
+const db = require("../db/sql")
 describe("API test", () => {
-  beforeAll((done) => {
-    mongoose.connect(process.env.DB_STRING.toString()).then(() => done());
-  })
 
   afterAll((done) => {
-    mongoose.connection.close().then(() => done());
+    db.close((err) => console.log(err))
   });
 
   test("POST /signup", async () => {
