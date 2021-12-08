@@ -35,7 +35,8 @@ jobs:
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           usedocker: true
+        # Set environment variables in Heroku, the "HD_" will be removed and the remaining string will be used as key in Heroku
         env:
-          SECRET: ${{secrets.SECRET}}
-          SKIP_PREFLIGHT_CHECK: true
-          REACT_APP_GOOGLE_MAPS_API_KEY: ${{secrets.REACT_APP_GOOGLE_MAPS_API_KEY}} 
+          HD_SECRET: ${{secrets.SECRET}}
+          HD_SKIP_PREFLIGHT_CHECK: true
+          HD_REACT_APP_GOOGLE_MAPS_API_KEY: ${{secrets.REACT_APP_GOOGLE_MAPS_API_KEY}} 
