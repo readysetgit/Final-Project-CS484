@@ -13,7 +13,8 @@ const db_path = path.join(__dirname, "./db/");
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.set(trust_proxy, 1); // Fix heroku trust thingy
+app.enable('trust proxy', 1)
 const cors = require("cors");
 const scripts = require("./db/scripts");
 app.use(
