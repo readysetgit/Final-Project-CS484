@@ -76,7 +76,7 @@ Side hustle - Being late to class. <br><br>
 
 ![Alt text](git-workflow.png?raw=true "Git workflow")
 ## Development Tools
-- **Backend**: mongodb  
+- **Backend**: sqllite  
 - **Server side**: nodejs, express, passport.js, jest 
 - **Client side**: react
 
