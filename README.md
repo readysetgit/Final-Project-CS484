@@ -4,7 +4,7 @@
 ![Alt text](ERD-hotspot.png?raw=true "ERD diagram")
 
 # LINK TO HEROKU HOSTED WEBAPP 
-## https://hotspot-heroku.herokuapp.com/ <br><br>
+## https://hotspot-heroku-2.herokuapp.com/ <br><br>
 
 # SETUP INSTRUCTIONS
 
