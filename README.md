@@ -3,10 +3,10 @@
 # ERD Diagram
 ![Alt text](ERD-hotspot.png?raw=true "ERD diagram")
 
-# LINK TO HEROKU HOSTED WEBAPP 
-## https://hotspot-heroku-2.herokuapp.com/ <br><br>
+# Link to heroku hosted web app (inactive at the moment) 
+## ~~https://hotspot-heroku-2.herokuapp.com/~~ <br><br>
 
-# SETUP INSTRUCTIONS
+# Setup Instructions
 
 ### 1. Navigate to client/
 ### 2. Create a `.env` file
